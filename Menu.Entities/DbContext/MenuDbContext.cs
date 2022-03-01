@@ -6,11 +6,12 @@ using System.Linq;
 
 namespace Menu.Entities
 {
-    public partial class MenuDB : DbContext
+    public partial class MenuDbContext : DbContext
     {
-        public MenuDB()
-            : base("name=MenuDB")
+        DbContextOptions options;
+        public MenuDbContext(DbContextOptions _options) : base(_options)
         {
+            options= _options;
         }
 
         public virtual DbSet<Adress> Adress { get; set; }
@@ -39,7 +40,7 @@ namespace Menu.Entities
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserCompany_C> UserCompany_C { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Adress>()
                 .HasMany(e => e.Adress_C)
