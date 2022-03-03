@@ -19,16 +19,10 @@ namespace Menu.Entities
         public int IdState { get; set; }
 
         [Required]
-        [StringLength(50)]
+      
         public string Adressline1 { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Adressline2 { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Adressline3 { get; set; }
+       
 
         
         public virtual ICollection<Adress_C> Adress_C { get; set; }

@@ -23,7 +23,12 @@ namespace Menu.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        
+        public virtual ICollection<Package> Package { get; set; }
+
+        public virtual ICollection<Category> Category { get; set; }
+
+        public virtual ICollection<Product> Product { get; set; }
+
         public virtual ICollection<Adress_C> Adress_C { get; set; }
 
         

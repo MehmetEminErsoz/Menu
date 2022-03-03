@@ -29,6 +29,10 @@ namespace Menu.Entities
 
         public int IdCategory { get; set; }
 
+        public int IdCompany { get; set; }
+
+        public virtual Company Company { get; set; }
+
         public virtual Category Category { get; set; }
 
        

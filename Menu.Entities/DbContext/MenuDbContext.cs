@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Menu.Entities
 {
-    public partial class MenuDbContext : DbContext
+    public class MenuDbContext : DbContext
     {
         DbContextOptions options;
         public MenuDbContext(DbContextOptions _options) : base(_options)
@@ -43,10 +43,10 @@ namespace Menu.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Adress>()
-                .HasMany(e => e.Adress_C)
-                .WithRequired(e => e.Adress)
-                .HasForeignKey(e => e.IdAdress)
-                .WillCascadeOnDelete(false);
+               .HasMany(e => e.Adress_C)
+               .WithRequired(e => e.Adress)
+               .HasForeignKey(e => e.IdAdress)
+               .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<AdressType>()
                 .HasMany(e => e.Adress_C)
@@ -94,6 +94,12 @@ namespace Menu.Entities
                 .HasForeignKey(e => e.IdCompany);
 
             modelBuilder.Entity<Company>()
+                .HasMany(e => e.Category)
+                .WithRequired(e => e.Company)
+                .HasForeignKey(e => e.IdCompany)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Company>()
                 .HasMany(e => e.Desk)
                 .WithRequired(e => e.Company)
                 .HasForeignKey(e => e.IdCompany)
@@ -101,6 +107,18 @@ namespace Menu.Entities
 
             modelBuilder.Entity<Company>()
                 .HasMany(e => e.Menu)
+                .WithRequired(e => e.Company)
+                .HasForeignKey(e => e.IdCompany)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Company>()
+                .HasMany(e => e.Package)
+                .WithRequired(e => e.Company)
+                .HasForeignKey(e => e.IdCompany)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Company>()
+                .HasMany(e => e.Product)
                 .WithRequired(e => e.Company)
                 .HasForeignKey(e => e.IdCompany)
                 .WillCascadeOnDelete(false);

@@ -22,7 +22,11 @@ namespace Menu.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        
+        public int IdCompany { get; set; }
+
+        public virtual Company Company { get; set; }
+
+
         public virtual ICollection<Package> Package { get; set; }
 
         
