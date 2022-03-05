@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.Entities", "Menu.Entities\Menu.Entities.csproj", "{940A5351-EB72-4B67-B8DC-51D571C8FE71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.DataAccess", "Menu.DataAccess\Menu.DataAccess.csproj", "{2B75D370-64D6-4A37-8EF2-4BFAFD794EE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.DataAccess", "Menu.DataAccess\Menu.DataAccess.csproj", "{2B75D370-64D6-4A37-8EF2-4BFAFD794EE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Business", "Menu.Business\Menu.Business.csproj", "{44F290EF-2F9A-4394-A6FB-DED44B135BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.Business", "Menu.Business\Menu.Business.csproj", "{44F290EF-2F9A-4394-A6FB-DED44B135BB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.API", "Menu.API\Menu.API.csproj", "{E00A02A7-47FC-428F-81BC-6313C831904C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{44F290EF-2F9A-4394-A6FB-DED44B135BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44F290EF-2F9A-4394-A6FB-DED44B135BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44F290EF-2F9A-4394-A6FB-DED44B135BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E00A02A7-47FC-428F-81BC-6313C831904C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00A02A7-47FC-428F-81BC-6313C831904C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00A02A7-47FC-428F-81BC-6313C831904C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00A02A7-47FC-428F-81BC-6313C831904C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

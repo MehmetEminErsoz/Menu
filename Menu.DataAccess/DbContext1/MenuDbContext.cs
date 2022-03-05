@@ -6,43 +6,47 @@ using System.Linq;
 
 namespace Menu.DataAccess
 {
-    public class MenuDbContext1 : DbContext
+    public class MenuDbContext : DbContext
     {
         DbContextOptions options;
-        public MenuDbContext1(DbContextOptions _options) : base(_options)
+        public MenuDbContext(DbContextOptions _options) : base(_options)
         {
             options= _options;
         }
 
-        public virtual DbSet<Adress> Adress { get; set; }
-        public virtual DbSet<Adress_C> Adress_C { get; set; }
-        public virtual DbSet<AdressType> AdressType { get; set; }
-        public virtual DbSet<Bill> Bill { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<City> City { get; set; }
-        public virtual DbSet<Company> Company { get; set; }
-        public virtual DbSet<Country> Country { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Desk> Desk { get; set; }
-        public virtual DbSet<Menu.Entities.Menu> Menu { get; set; }
-        public virtual DbSet<MenuPackageProduct_C> MenuPackageProduct_C { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<OrderPackageProduct_C> OrderPackageProduct_C { get; set; }
-        public virtual DbSet<Package> Package { get; set; }
-        public virtual DbSet<PackageProduct_C> PackageProduct_C { get; set; }
-        public virtual DbSet<PaymentMethod> PaymentMethod { get; set; }
-        public virtual DbSet<Person> Person { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<State> State { get; set; }
-        public virtual DbSet<SubCategory> SubCategory { get; set; }
+        public  DbSet<Adress> Adress { get; set; }
+        public  DbSet<Adress_C> Adress_C { get; set; }
+        public  DbSet<AdressType> AdressType { get; set; }
+        public  DbSet<Bill> Bill { get; set; }
+        public  DbSet<Category> Category { get; set; }
+        public  DbSet<City> City { get; set; }
+        public  DbSet<Company> Company { get; set; }
+        public  DbSet<Country> Country { get; set; }
+        public  DbSet<Customer> Customer { get; set; }
+        public  DbSet<Desk> Desk { get; set; }
+        public  DbSet<Menu.Entities.Menu> Menu { get; set; }
+        public  DbSet<MenuPackageProduct_C> MenuPackageProduct_C { get; set; }
+        public  DbSet<Order> Order { get; set; }
+        public  DbSet<OrderPackageProduct_C> OrderPackageProduct_C { get; set; }
+        public  DbSet<Package> Package { get; set; }
+        public  DbSet<PackageProduct_C> PackageProduct_C { get; set; }
+        public  DbSet<PaymentMethod> PaymentMethod { get; set; }
+        public  DbSet<Person> Person { get; set; }
+        public  DbSet<Product> Product { get; set; }
+        public  DbSet<Role> Role { get; set; }
+        public  DbSet<State> State { get; set; }
+        public  DbSet<SubCategory> SubCategory { get; set; }
       
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserCompany_C> UserCompany_C { get; set; }
+        public  DbSet<User> User { get; set; }
+        public  DbSet<UserCompany_C> UserCompany_C { get; set; }
 
+
+
+        //WillCascadeOnDelete == true Tüm baðlý tablolardaki 1-n olan datalarý da siler.
+        //Orn. Kullanýcý silinirse kullanýcý detaylarý silinir.Adress vb tablolardan Id sine göre silinir.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Adress>()
+            modelBuilder.Entity<Adress>()
                .HasMany(e => e.Adress_C)
                .WithRequired(e => e.Adress)
                .HasForeignKey(e => e.IdAdress)
@@ -256,7 +260,7 @@ namespace Menu.DataAccess
                 .WillCascadeOnDelete(false);
 
 
-            */
+            
         }
     }
 }
