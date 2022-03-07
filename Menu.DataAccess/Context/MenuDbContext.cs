@@ -96,6 +96,54 @@ namespace Menu.DataAccess
                 .WithMany(s => s.Category)
                 .HasForeignKey(s => s.IdCompany);
 
+            modelBuilder.Entity<City>()
+                .HasOne(s=>s.Country)
+                .WithMany(s => s.City)
+                .HasForeignKey(s=>s.IdCountry);
+
+            modelBuilder.Entity<Customer>()
+                .HasOne(s=>s.Person)
+                .WithMany(s => s.Customer)
+                .HasForeignKey(s=>s.IdPerson);
+
+            modelBuilder.Entity<Desk>()
+                .HasOne(s => s.Company)
+                .WithMany(s => s.Desk)
+                .HasForeignKey(s => s.IdCompany);
+
+            modelBuilder.Entity<Menu.Entities.Menu>()
+                .HasOne(s => s.Company)
+                .WithMany(s => s.Menu)
+                .HasForeignKey(s => s.IdCompany);
+
+            modelBuilder.Entity<MenuPackageProduct_C>()
+                .HasOne(s => s.Menu)
+                .WithMany(s => s.MenuPackageProduct_C)
+                .HasForeignKey(s => s.IdMenu);
+
+            modelBuilder.Entity<MenuPackageProduct_C>()
+                .HasOne(s => s.Package)
+                .WithMany(s => s.MenuPackageProduct_C)
+                .HasForeignKey(s => s.IdPackage);
+
+            modelBuilder.Entity<MenuPackageProduct_C>()
+                .HasOne(s => s.Product)
+                .WithMany(s => s.MenuPackageProduct_C)
+                .HasForeignKey(s => s.IdProduct);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(s => s.Bill)
+                .WithMany(s => s.Order)
+                .HasForeignKey(s => s.IdBill);
+
+            modelBuilder.Entity<OrderPackageProduct_C>()
+                .HasOne(s=>s.Order)
+                .WithMany(s=>s.OrderPackageProduct_C)
+                .HasForeignKey(s=>s.IdOrder);
+
+            modelBuilder.Entity<OrderPackageProduct_C>()
+                .HasOne(s=>s.Order)
+                .WithMany()
         }
     }
 }

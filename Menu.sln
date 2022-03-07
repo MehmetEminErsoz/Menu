@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.DataAccess", "Menu.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.Business", "Menu.Business\Menu.Business.csproj", "{44F290EF-2F9A-4394-A6FB-DED44B135BB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.API", "Menu.API\Menu.API.csproj", "{E00A02A7-47FC-428F-81BC-6313C831904C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menu.API", "Menu.API\Menu.API.csproj", "{E00A02A7-47FC-428F-81BC-6313C831904C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
