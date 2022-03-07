@@ -26,13 +26,13 @@ namespace Menu.Entities
 
         public double DiscountRate { get; set; }
 
-        public int PaymentMethod { get; set; }
+        public int IdPaymentMethod { get; set; }
 
         public int IdUser { get; set; }
 
         public virtual Desk Desk { get; set; }
 
-        public virtual PaymentMethod PaymentMethod1 { get; set; }
+        public virtual PaymentMethod PaymentMethod { get; set; }
 
         public virtual User User { get; set; }
 
