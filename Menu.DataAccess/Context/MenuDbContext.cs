@@ -13,7 +13,6 @@ namespace Menu.DataAccess
         {
             options= _options;
         }
-
         public  DbSet<Adress> Adress { get; set; }
         public  DbSet<Adress_C> Adress_C { get; set; }
         public  DbSet<AdressType> AdressType { get; set; }
@@ -36,20 +35,15 @@ namespace Menu.DataAccess
         public  DbSet<Role> Role { get; set; }
         public  DbSet<State> State { get; set; }
         public  DbSet<SubCategory> SubCategory { get; set; }
-      
         public  DbSet<User> User { get; set; }
         public  DbSet<UserCompany_C> UserCompany_C { get; set; }
 
-
-
-        //WillCascadeOnDelete == true Tüm baðlý tablolardaki 1-n olan datalarý da siler.
-        //Orn. Kullanýcý silinirse kullanýcý detaylarý silinir.Adress vb tablolardan Id sine göre silinir.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Adress>()
-               .HasOne(s => s.State)
-               .WithMany(s => s.Adress)
-               .HasForeignKey(s => s.IdState);
+                .HasOne(s => s.State)
+                .WithMany(s => s.Adress)
+                .HasForeignKey(s => s.IdState);
 
             modelBuilder.Entity<Adress_C>()
                 .HasOne(s => s.Adress)
@@ -67,9 +61,9 @@ namespace Menu.DataAccess
                 .HasForeignKey(s => s.IdCompany);
 
             modelBuilder.Entity<Adress_C>()
-                  .HasOne(s => s.Person)
-                  .WithMany(s => s.Adress_C)
-                  .HasForeignKey(s => s.IdPerson);
+                .HasOne(s => s.Person)
+                .WithMany(s => s.Adress_C)
+                .HasForeignKey(s => s.IdPerson);
 
             modelBuilder.Entity<Bill>()
                 .HasOne(s=>s.User)
@@ -82,9 +76,9 @@ namespace Menu.DataAccess
                 .HasForeignKey(s => s.IdPaymentMethod);
 
             modelBuilder.Entity<Bill>()
-                 .HasOne(s => s.User)
-                 .WithMany(s => s.Bill)
-                 .HasForeignKey(s => s.IdUser);
+                .HasOne(s => s.User)
+                .WithMany(s => s.Bill)
+                .HasForeignKey(s => s.IdUser);
 
             modelBuilder.Entity<Bill>()
                 .HasOne(s => s.Desk)
@@ -142,8 +136,79 @@ namespace Menu.DataAccess
                 .HasForeignKey(s=>s.IdOrder);
 
             modelBuilder.Entity<OrderPackageProduct_C>()
-                .HasOne(s=>s.Order)
-                .WithMany()
-        }
+                .HasOne(s => s.Order)
+                .WithMany(s => s.OrderPackageProduct_C)
+                .HasForeignKey(s => s.IdOrder);
+
+            modelBuilder.Entity<Package>()
+                .HasOne(s=>s.Company)
+                .WithMany(s=>s.Package)
+                .HasForeignKey(s => s.IdCompany);
+
+            modelBuilder.Entity<Package>()
+                .HasOne(s => s.Category)
+                .WithMany(s => s.Package)
+                .HasForeignKey(s => s.IdCategory);
+
+            modelBuilder.Entity<Package>()
+                .HasOne(s => s.SubCategory)
+                .WithMany(s => s.Package)
+                .HasForeignKey(s => s.IdSubCategory);
+
+            modelBuilder.Entity<PackageProduct_C>()
+                .HasOne(s => s.Package)
+                .WithMany(s => s.PackageProduct_C)
+                .HasForeignKey(s => s.IdPackage);
+
+            modelBuilder.Entity<PackageProduct_C>()
+                .HasOne(s => s.Product)
+                .WithMany(s => s.PackageProduct_C)
+                .HasForeignKey(s => s.IdProduct);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(s => s.Company)
+                .WithMany(s => s.Product)
+                .HasForeignKey(s => s.IdCompany);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(s => s.Category)
+                .WithMany(s => s.Product)
+                .HasForeignKey(s => s.IdCategory);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(s => s.SubCategory)
+                .WithMany(s => s.Product)
+                .HasForeignKey(s => s.IdSubCategory);
+
+            modelBuilder.Entity<State>()
+                .HasOne(s => s.City)
+                .WithMany(s => s.State)
+                .HasForeignKey(s => s.IdCity);
+
+            modelBuilder.Entity<SubCategory>()
+                .HasOne(s=>s.Category)
+                .WithMany(s=>s.SubCategory)
+                .HasForeignKey(s=>s.IdCategory);
+
+            modelBuilder.Entity<User>()
+                .HasOne(s => s.Person)
+                .WithMany(s => s.User)
+                .HasForeignKey(s => s.IdPerson);
+
+            modelBuilder.Entity<UserCompany_C>()
+                .HasOne(s=>s.Company)
+                .WithMany(s=>s.UserCompany_C)
+                .HasForeignKey(s=>s.IdCompany);
+
+            modelBuilder.Entity<UserCompany_C>()
+                .HasOne(s=>s.Role)
+                .WithMany(s=>s.UserCompany_C)
+                .HasForeignKey(s=>s.IdRole);
+
+            modelBuilder.Entity<UserCompany_C>()
+                .HasOne(s=>s.User)
+                .WithMany(s=>s.UserCompany_C)
+                .HasForeignKey(s=>s.IdUser);
+            }
     }
 }
