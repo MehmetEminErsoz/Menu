@@ -11,7 +11,9 @@ namespace Menu.Business.DTO
         public int Id { get; set; }
         public string Name { get; set; }
 
-
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
 
         public  int Adress_C { get; set; }
     }

@@ -12,6 +12,10 @@ namespace Menu.Business.DTO
         [Key]
         public int Id { get; set; }
 
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
+
         public int? IdPerson { get; set; }
 
         public int IdAdress { get; set; }

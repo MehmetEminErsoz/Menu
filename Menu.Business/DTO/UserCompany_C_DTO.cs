@@ -9,6 +9,9 @@ namespace Menu.Business.DTO
     public class UserCompany_C_DTO : IDtoWithId
     {
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
 
         public int IdCompany { get; set; }
 
