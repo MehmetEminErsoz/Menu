@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +21,10 @@ namespace Menu.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        public int IdCity { get; set; }
+        [ForeignKey("IdCity")]
+        public int? IdCity { get; set; }
+        public City? City { get; set; }
 
-        
-        public virtual ICollection<Adress> Adress { get; set; }
-
-        public virtual City City { get; set; }
+        public ICollection<Adress> Adress { get; set; }
     }
 }

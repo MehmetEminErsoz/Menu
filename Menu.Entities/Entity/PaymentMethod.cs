@@ -20,7 +20,6 @@ namespace Menu.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        
-        public virtual ICollection<Bill> Bill { get; set; }
+        public  ICollection<Bill> Bill { get; set; }
     }
 }

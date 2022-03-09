@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,12 @@ namespace Menu.Entities
     {
         public int Id { get; set; }
 
-        public int  IdOrder { get; set; }
+        [ForeignKey("IdOrder")]
+        public int? IdOrder { get; set; }
+        public Order? Order { get; set; }
 
-        public int IdMenuPackageProduct_C { get; set; }
-
-        public virtual MenuPackageProduct_C MenuPackageProduct_C { get;set; }
-
-        public virtual Order Order { get; set; }
+        [ForeignKey("IdMenuPackageProduct_C")]
+        public int? IdMenuPackageProduct_C { get; set; }
+        public MenuPackageProduct_C? MenuPackageProduct_C { get; set; }
     }
 }

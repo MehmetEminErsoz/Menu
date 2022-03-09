@@ -17,7 +17,7 @@ namespace Menu.Entities
         
         public int Id { get; set; }
 
-        public int IdDesk { get; set; }
+        
 
         [Column(TypeName = "money")]
         public decimal TotalPrice { get; set; }
@@ -26,17 +26,18 @@ namespace Menu.Entities
 
         public double DiscountRate { get; set; }
 
-        public int IdPaymentMethod { get; set; }
+        [ForeignKey("IdDesk")]
+        public int? IdDesk { get; set; }
+        public Desk? Desk { get; set; }
 
-        public int IdUser { get; set; }
+        [ForeignKey("IdPaymentMethod")]
+        public int? IdPaymentMethod { get; set; }
+        public PaymentMethod? PaymentMethod { get; set; }
 
-        public virtual Desk Desk { get; set; }
+        [ForeignKey("IdUser")]
+        public int? IdUser { get; set; }
+        public User? User { get; set; }
 
-        public virtual PaymentMethod PaymentMethod { get; set; }
-
-        public virtual User User { get; set; }
-
-        
-        public virtual ICollection<Order> Order { get; set; }
+        public ICollection<Order> Order { get; set; }
     }
 }

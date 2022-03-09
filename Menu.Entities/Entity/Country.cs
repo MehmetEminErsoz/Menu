@@ -22,7 +22,6 @@ namespace Menu.Entities
 
         public byte CountryNumber { get; set; }
 
-       
-        public virtual ICollection<City> City { get; set; }
+        public ICollection<City> City { get; set; }
     }
 }

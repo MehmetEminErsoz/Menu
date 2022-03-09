@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,17 @@ namespace Menu.Entities
         {
             Adress_C = new HashSet<Adress_C>();
         }
-        [Key]
+
         public int Id { get; set; }
 
-        public int IdState { get; set; }
-
         [Required]     
-        public string Adressline1 { get; set; }
+        public string Adressline { get; set; }
 
-        public virtual ICollection<Adress_C> Adress_C { get; set; }
+        [ForeignKey("IdState")]
+        public int? IdState { get; set; }
+        public State? State { get; set; }
 
-        public virtual State State { get; set; }
+        public ICollection<Adress_C> Adress_C { get; set; }
+
     }
 }

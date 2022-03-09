@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,21 +15,20 @@ namespace Menu.Entities
             Package = new HashSet<Package>();
             Product = new HashSet<Product>();
         }
-
+        [Key]
         public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
-        public int IdCategory { get; set; }
 
-        public virtual Category Category { get; set; }
+        [ForeignKey("IdCategory")]
+        public int? IdCategory { get; set; }
+        public Category? Category { get; set; }
 
-        
-        public virtual ICollection<Package> Package { get; set; }
+        public ICollection<Package>? Package { get; set; }
 
-        
-        public virtual ICollection<Product> Product { get; set; }
+        public ICollection<Product> Product { get; set; }
     }
 }

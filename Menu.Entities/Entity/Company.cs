@@ -16,28 +16,20 @@ namespace Menu.Entities
             Menu = new HashSet<Menu>();
             UserCompany_C = new HashSet<UserCompany_C>();
         }
-
+        [Required]
+        [Key]
         public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<Package> Package { get; set; }
-
-        public virtual ICollection<Category> Category { get; set; }
-
-        public virtual ICollection<Product> Product { get; set; }
-
-        public virtual ICollection<Adress_C> Adress_C { get; set; }
-
-        
-        public virtual ICollection<Desk> Desk { get; set; }
-
-       
-        public virtual ICollection<Menu> Menu { get; set; }
-
-       
-        public virtual ICollection<UserCompany_C> UserCompany_C { get; set; }
+        public  ICollection<Package> Package { get; set; }
+        public  ICollection<Category> Category { get; set; }
+        public  ICollection<Product> Product { get; set; }
+        public  ICollection<Adress_C> Adress_C { get; set; }
+        public  ICollection<Desk> Desk { get; set; }
+        public  ICollection<Menu> Menu { get; set; }
+        public  ICollection<UserCompany_C> UserCompany_C { get; set; }
     }
 }

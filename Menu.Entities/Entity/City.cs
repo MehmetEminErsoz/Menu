@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +25,10 @@ namespace Menu.Entities
         [StringLength(50)]
         public string CityNumber { get; set; }
 
-        public int IdCountry { get; set; }
+        [ForeignKey("IdCountry")]
+        public int? IdCountry { get; set; }
+        public Country? Country { get; set; }
 
-        public virtual Country Country { get; set; }
-
-        
-        public virtual ICollection<State> State { get; set; }
+        public ICollection<State> State { get; set; }
     }
 }

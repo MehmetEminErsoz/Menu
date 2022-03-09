@@ -15,6 +15,6 @@ namespace Menu.Entities
         }
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Adress_C> Adress_C { get; set; }
+        public ICollection<Adress_C> Adress_C { get; set; }
     }
 }

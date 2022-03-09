@@ -22,25 +22,26 @@ namespace Menu.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        public int? IdSubCategory { get; set; }
-
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
-        public int IdCategory { get; set; }
+        [ForeignKey("IdCompany")]
+        public int? IdCompany { get; set; }
+        public Company? Company { get; set; }
 
-        public int IdCompany { get; set; }
+        [ForeignKey("IdCategory")]
+        public int? IdCategory { get; set; }
+        public Category? Category { get; set; }
 
-        public virtual Company Company { get; set; }
+        [ForeignKey("IdSubCategory")]
+        public int? IdSubCategory { get; set; }
+        public SubCategory? SubCategory { get; set; }
 
-        public virtual Category Category { get; set; }
 
-       
-        public virtual ICollection<MenuPackageProduct_C> MenuPackageProduct_C { get; set; }
+        public ICollection<MenuPackageProduct_C> MenuPackageProduct_C { get; set; }
+        
+        public ICollection<PackageProduct_C> PackageProduct_C { get; set; }
 
         
-        public virtual ICollection<PackageProduct_C> PackageProduct_C { get; set; }
-
-        public virtual SubCategory SubCategory { get; set; }
     }
 }

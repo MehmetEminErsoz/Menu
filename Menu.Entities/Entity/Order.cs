@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +22,12 @@ namespace Menu.Entities
         [StringLength(50)]
         public string OrderTaker { get; set; }
 
-        public int IdBill { get; set; }
-
         public string Ps { get; set; }
 
-        public virtual Bill Bill { get; set; }
+        [ForeignKey("IdBill")]
+        public int? IdBill { get; set; }
+        public Bill? Bill { get; set; }
 
-       
-        public virtual ICollection<OrderPackageProduct_C> OrderPackageProduct_C { get; set; }
+        public  ICollection<OrderPackageProduct_C> OrderPackageProduct_C { get; set; }
     }
 }

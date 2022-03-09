@@ -15,8 +15,9 @@ namespace Menu.Entities
         {
             MenuPackageProduct_C = new HashSet<MenuPackageProduct_C>();
             PackageProduct_C = new HashSet<PackageProduct_C>();
+            Name = "";
         }
-
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -28,22 +29,20 @@ namespace Menu.Entities
 
         public int IdPackageIngredient { get; set; }
 
-        public int IdCategory { get; set; }
-
-        public int? IdSubCategory { get; set; }
-
-        public int IdCompany { get; set; }
-
-        public virtual Company Company { get; set; }
-
-        public virtual Category Category { get; set; }
-
         
-        public virtual ICollection<MenuPackageProduct_C> MenuPackageProduct_C { get; set; }
+        [ForeignKey("IdCompany")]
+        public int? IdCompany { get; set; }
+        public Company? Company { get; set; }
+        
+        [ForeignKey("IdCategory")]
+        public int? IdCategory { get; set; }
+        public Category? Category { get; set; }
+      
+        [ForeignKey("IdSubCategory")]
+        public int? IdSubCategory { get; set; }
+        public SubCategory? SubCategory { get; set; }
 
-        public virtual SubCategory SubCategory { get; set; }
-
-       
-        public virtual ICollection<PackageProduct_C> PackageProduct_C { get; set; }
+        public ICollection<MenuPackageProduct_C> MenuPackageProduct_C { get; set; }
+        public ICollection<PackageProduct_C> PackageProduct_C { get; set; }
     }
 }

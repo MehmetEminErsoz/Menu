@@ -47,13 +47,8 @@ namespace Menu.Entities
         [StringLength(50)]
         public string Password { get; set; }
 
-        
-        public virtual ICollection<Adress_C> Adress_C { get; set; }
-
-       
-        public virtual ICollection<Customer> Customer { get; set; }
-
-       
-        public virtual ICollection<User> User { get; set; }
+        public ICollection<Adress_C> Adress_C { get; set; }
+        public ICollection<Customer> Customer { get; set; }
+        public ICollection<User> User { get; set; }
     }
 }

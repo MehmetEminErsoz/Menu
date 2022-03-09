@@ -141,8 +141,8 @@ namespace Menu.DataAccess
                 .HasForeignKey(s => s.IdOrder);
 
             modelBuilder.Entity<Package>()
-                .HasOne(s=>s.Company)
-                .WithMany(s=>s.Package)
+                .HasOne(s => s.Company)
+                .WithMany(s => s.Package)
                 .HasForeignKey(s => s.IdCompany);
 
             modelBuilder.Entity<Package>()
@@ -154,7 +154,7 @@ namespace Menu.DataAccess
                 .HasOne(s => s.SubCategory)
                 .WithMany(s => s.Package)
                 .HasForeignKey(s => s.IdSubCategory);
-
+                
             modelBuilder.Entity<PackageProduct_C>()
                 .HasOne(s => s.Package)
                 .WithMany(s => s.PackageProduct_C)

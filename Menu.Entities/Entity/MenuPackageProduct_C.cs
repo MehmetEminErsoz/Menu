@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,22 +15,20 @@ namespace Menu.Entities
         }
 
         public int Id { get; set; }
-
-        public int IdMenu { get; set; }
-
-        public int? IdPackage { get; set; }
-
-        public int? IdProduct { get; set; }
-
         public bool Active { get; set; }
 
-        public virtual Menu Menu { get; set; }
+        [ForeignKey("IdMenu")]
+        public int? IdMenu { get; set; }
+        public Menu? Menu { get; set; }
 
-        public virtual Package Package { get; set; }
+        [ForeignKey("IdPackage")]
+        public int? IdPackage { get; set; }
+        public Package? Package { get; set; }
 
-        public virtual Product Product { get; set; }
+        [ForeignKey("IdProduct")]
+        public int? IdProduct { get; set; }
+        public Product? Product { get; set; }
 
-        
-        public virtual ICollection<OrderPackageProduct_C> OrderPackageProduct_C { get; set; }
+        public ICollection<OrderPackageProduct_C> OrderPackageProduct_C { get; set; }
     }
 }
