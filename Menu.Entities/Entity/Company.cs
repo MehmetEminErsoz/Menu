@@ -19,6 +19,9 @@ namespace Menu.Entities
         [Required]
         [Key]
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
 
         [Required]
         [StringLength(50)]

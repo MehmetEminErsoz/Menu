@@ -16,6 +16,10 @@ namespace Menu.Entities
         }
 
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
+
 
         [Required]     
         public string Adressline { get; set; }

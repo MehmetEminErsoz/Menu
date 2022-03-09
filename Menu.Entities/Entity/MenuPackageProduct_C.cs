@@ -15,7 +15,9 @@ namespace Menu.Entities
         }
 
         public int Id { get; set; }
-        public bool Active { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
 
         [ForeignKey("IdMenu")]
         public int? IdMenu { get; set; }

@@ -10,7 +10,9 @@ namespace Menu.Entities
     public class PackageProduct_C : IEntityWithId
     {
         public int Id { get; set; }
-
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
         public byte Piece { get; set; }
 
 

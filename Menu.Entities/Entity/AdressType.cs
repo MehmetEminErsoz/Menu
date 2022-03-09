@@ -14,6 +14,9 @@ namespace Menu.Entities
             Adress_C = new HashSet<Adress_C>();
         }
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
         public string Name { get; set; }
         public ICollection<Adress_C> Adress_C { get; set; }
     }

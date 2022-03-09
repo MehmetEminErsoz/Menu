@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Menu.Entities\Menu.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Concrete\" />
-  </ItemGroup>
-
 </Project>

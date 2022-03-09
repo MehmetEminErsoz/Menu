@@ -19,6 +19,9 @@ namespace Menu.Entities
         }
 
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -35,7 +38,7 @@ namespace Menu.Entities
         [Column(TypeName = "date")]
         public DateTime Birthday { get; set; }
 
-        public bool Active { get; set; }
+        public bool IsEmailConfirmed { get; set; }
 
         [Required]
         [StringLength(50)]

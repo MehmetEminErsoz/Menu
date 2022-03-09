@@ -10,7 +10,10 @@ namespace Menu.Entities
     public class UserCompany_C : IEntityWithId
     {
         public int Id { get; set; }
-        
+        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreateTime { get; set; }
+
         [ForeignKey("IdCompany")]
         public int? IdCompany { get; set; }
         public Company? Company { get; set; }
