@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.DTO
 {
-    public class Address_C_DTO : IDtoWithId
+    public class Adress_C_DTO : IDtoWithId
     {
         [Key]
         public int Id { get; set; }

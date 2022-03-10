@@ -15,11 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Menu.Business\Menu.Business.csproj" />
     <ProjectReference Include="..\Menu.DataAccess\Menu.DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

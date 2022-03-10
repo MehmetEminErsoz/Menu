@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.Concrete
 {
-    public class Adress_CManager : GenericManager<Adress_C, Address_C_DTO>
+    public class Adress_CManager : GenericManager<Adress_C, Adress_C_DTO>
     {
         IGenericRepository<Adress_C> repository;
         IFunctions functions;
