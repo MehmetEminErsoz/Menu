@@ -28,7 +28,7 @@ namespace Menu.Entities
         public int? IdState { get; set; }
         public State? State { get; set; }
 
-        public ICollection<Adress_C> Adress_C { get; set; }
+        public virtual ICollection<Adress_C> Adress_C { get; set; }
 
     }
 }
