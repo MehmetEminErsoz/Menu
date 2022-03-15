@@ -23,17 +23,17 @@ namespace Menu.Business.DTO
 
         public double DiscountRate { get; set; }
 
-        public int PaymentMethod { get; set; }
+        public int IdPaymentMethod { get; set; }
 
         public int IdUser { get; set; }
-
+        /*
         public  Desk_DTO Desk { get; set; }
 
         public  PaymentMethod_DTO PaymentMethod1 { get; set; }
 
         public  User_DTO User { get; set; }
 
-
+        */
 
 
         //Diğer tablo referanslarını int olarak tanımladım.

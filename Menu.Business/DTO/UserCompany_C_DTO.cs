@@ -19,10 +19,10 @@ namespace Menu.Business.DTO
 
         public int IdRole { get; set; }
 
-        public  Company_DTO Company { get; set; }
+        /*public  Company_DTO Company { get; set; }
 
         public  Role_DTO Role { get; set; }
 
-        public  User_DTO User { get; set; }
+        public  User_DTO User { get; set; }*/
     }
 }

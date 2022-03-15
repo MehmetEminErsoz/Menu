@@ -17,8 +17,8 @@ namespace Menu.Business.DTO
 
         public int IdMenuPackageProduct_C { get; set; }
 
-        public  MenuPackageProduct_C_DTO MenuPackageProduct_C { get; set; }
+       // public  MenuPackageProduct_C_DTO MenuPackageProduct_C { get; set; }
 
-        public Order_DTO Order { get; set; }
+       // public Order_DTO Order { get; set; }
     }
 }

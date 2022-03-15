@@ -19,10 +19,10 @@ namespace Menu.Business.DTO
         public string Name { get; set; }
 
         public int IdCompany { get; set; }
+        
+        //public Company_DTO Company { get; set; }
 
-        public Company_DTO Company { get; set; }
-
-
+        
 
         //Diğer tablo referanslarını int olarak tanımladım.
         public int Package { get; set; }

@@ -21,13 +21,13 @@ namespace Menu.Business.DTO
 
         public bool Active { get; set; }
 
-        public  Menu_DTO Menu { get; set; }
+        /*public  Menu_DTO Menu { get; set; }
 
         public  Package_DTO Package { get; set; }
 
         public  Product_DTO Product { get; set; }
 
-
+        */
         public int OrderPackageProduct_C { get; set; }
     }
 }

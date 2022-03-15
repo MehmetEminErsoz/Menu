@@ -28,9 +28,9 @@ namespace Menu.Business.DTO
 
         public int IdCompany { get; set; }
 
-        public  Company_DTO Company { get; set; }
+        /*public  Company_DTO Company { get; set; }
 
-        public  Category_DTO Category { get; set; }
+        public  Category_DTO Category { get; set; }*/
 
 
         public int MenuPackageProduct_C { get; set; }

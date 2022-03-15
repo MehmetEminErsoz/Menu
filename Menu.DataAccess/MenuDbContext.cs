@@ -53,7 +53,7 @@ namespace Menu.DataAccess
             modelBuilder.Entity<Adress_C>()
                 .HasOne(s => s.AdressType)
                 .WithMany(s => s.Adress_C)
-                .HasForeignKey(s => s.IdAdress);
+                .HasForeignKey(s => s.IdAdressType);
 
             modelBuilder.Entity<Adress_C>()
                 .HasOne(s => s.Company)

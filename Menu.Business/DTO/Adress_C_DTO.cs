@@ -24,6 +24,7 @@ namespace Menu.Business.DTO
 
         public int? IdCompany { get; set; }
 
+        /*
         public  Adress_DTO Adress { get; set; }
 
         public  AdressType_DTO AdressType { get; set; }
@@ -31,5 +32,6 @@ namespace Menu.Business.DTO
         public  Company_DTO Company { get; set; }
 
         public  Person_DTO Person { get; set; }
+        */
     }
 }

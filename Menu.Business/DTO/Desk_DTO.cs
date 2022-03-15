@@ -31,6 +31,6 @@ namespace Menu.Business.DTO
 
         public int Bill { get; set; }
 
-        public int Company { get; set; }
+        //public int Company { get; set; }
     }
 }

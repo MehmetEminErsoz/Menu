@@ -37,7 +37,7 @@ namespace Menu.Entities
         [StringLength(50)]
         public string PasswordAnswer { get; set; }
 
-        [ForeignKey("IdUser")]
+        [ForeignKey("IdPerson")]
         public int? IdPerson { get; set; }
         public Person? Person { get; set; }
 

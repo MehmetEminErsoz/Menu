@@ -23,6 +23,6 @@ namespace Menu.Business.DTO
 
         public int Adress { get; set; }
 
-        public  City_DTO City { get; set; }
+        //public  City_DTO City { get; set; }
     }
 }

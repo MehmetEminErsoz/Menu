@@ -22,6 +22,6 @@ namespace Menu.Business.DTO
 
         public bool IsApproved { get; set; }
 
-        public int Person { get; set; }
+        //public int Person { get; set; }
     }
 }

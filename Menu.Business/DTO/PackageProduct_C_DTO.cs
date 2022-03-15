@@ -19,8 +19,8 @@ namespace Menu.Business.DTO
 
         public byte Piece { get; set; }
 
-        public  Package_DTO Package { get; set; }
+        /*public  Package_DTO Package { get; set; }
 
-        public  Product_DTO Product { get; set; }
+        public  Product_DTO Product { get; set; }*/
     }
 }

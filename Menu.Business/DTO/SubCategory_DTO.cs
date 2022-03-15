@@ -20,7 +20,7 @@ namespace Menu.Business.DTO
 
         public int IdCategory { get; set; }
 
-        public virtual Category_DTO Category { get; set; }
+       // public virtual Category_DTO Category { get; set; }
 
 
         public int Package { get; set; }

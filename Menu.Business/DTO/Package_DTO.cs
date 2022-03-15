@@ -30,14 +30,14 @@ namespace Menu.Business.DTO
 
         public int IdCompany { get; set; }
 
-        public  Company_DTO Company { get; set; }
+       /* public  Company_DTO Company { get; set; }
 
         public  Category_DTO Category { get; set; }
-
+       */
 
         public int MenuPackageProduct_C { get; set; }
 
-        public  SubCategory_DTO SubCategory { get; set; }
+        //public  SubCategory_DTO SubCategory { get; set; }
 
 
         public int PackageProduct_C { get; set; }

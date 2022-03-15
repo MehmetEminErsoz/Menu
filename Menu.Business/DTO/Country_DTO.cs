@@ -21,6 +21,6 @@ namespace Menu.Business.DTO
         public byte CountryNumber { get; set; }
 
 
-        public int City { get; set; }
+        //public City_DTO City { get; set; }
     }
 }

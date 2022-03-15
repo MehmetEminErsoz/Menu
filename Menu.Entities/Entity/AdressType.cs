@@ -13,6 +13,7 @@ namespace Menu.Entities
         {
             Adress_C = new HashSet<Adress_C>();
         }
+        [Key]
         public int Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }

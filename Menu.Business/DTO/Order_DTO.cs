@@ -23,7 +23,7 @@ namespace Menu.Business.DTO
 
         public string Ps { get; set; }
 
-        public  Bill_DTO Bill { get; set; }
+       // public  Bill_DTO Bill { get; set; }
 
 
         public int OrderPackageProduct_C { get; set; }

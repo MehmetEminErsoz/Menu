@@ -45,8 +45,8 @@ namespace Menu.API.Concrete
 
             var result = service.add(record);
 
-            return CreatedAtAction("get", new { id = ((IEntityWithId)result).Id }, true);
-
+           // return CreatedAtAction("get", new { id = ((IEntityWithId)result).Id }, true);
+           return Ok(result);
 
         }
 
@@ -72,10 +72,10 @@ namespace Menu.API.Concrete
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] TargetDTO record)
         {
-            if (id != ((IEntityWithId)record).Id)
+            /*if (id != ((IEntityWithId)record).Id)
             {
                 return BadRequest();
-            }
+            }*/
 
             var result = service.update(id, record);
             if (result)

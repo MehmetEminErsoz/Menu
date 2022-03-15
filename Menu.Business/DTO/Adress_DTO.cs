@@ -17,10 +17,10 @@ namespace Menu.Business.DTO
         public int IdState { get; set; }
 
         [Required]
-        public string Adressline1 { get; set; }
+        public string Adressline { get; set; }
 
         public int Adress_C { get; set; }
 
-        public  State_DTO State { get; set; }
+        //public  State_DTO State { get; set; }
     }
 }
