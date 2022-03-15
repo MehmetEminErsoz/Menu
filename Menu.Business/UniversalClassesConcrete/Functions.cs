@@ -23,7 +23,6 @@ namespace Menu.Business.UniversalClassesConcrete
                         .ForMember(dest => dest.IdState, act => act.MapFrom(src => src.IdState))
                         .ForMember(dest=>dest.Adress_C,act=>act.MapFrom(src => src.Adress_C !=null ? src.Adress_C.Count() : src.Id))
                         .ReverseMap()
-                        .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                         .ForMember(dest => dest.State, act => act.Ignore())
                         .ForMember(dest=>dest.Adress_C, act=>act.Ignore());
 
@@ -33,7 +32,6 @@ namespace Menu.Business.UniversalClassesConcrete
                     .ForMember(dest => dest.IdAdressType, act => act.MapFrom(src => src.IdAdressType))
                     .ForMember(dest => dest.IdAdress, act => act.MapFrom(src => src.IdAdress))
                     .ReverseMap()
-                    .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                     .ForMember(dest => dest.IdPerson, act => act.MapFrom(src => src.IdPerson))
                     .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany))
                     .ForMember(dest => dest.IdAdressType, act => act.MapFrom(src=>src.IdAdressType))
@@ -42,7 +40,6 @@ namespace Menu.Business.UniversalClassesConcrete
                     cfg.CreateMap<AdressType,AdressType_DTO>()
                         .ForMember(dest => dest.Adress_C, act => act.MapFrom(src => src.Adress_C != null ? src.Adress_C.Count() : src.Id))
                         .ReverseMap()
-                        .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                         .ForMember(dest => dest.Adress_C, act => act.Ignore());
 
                     cfg.CreateMap<Bill, Bill_DTO>()
@@ -51,7 +48,6 @@ namespace Menu.Business.UniversalClassesConcrete
                      .ForMember(dest => dest.IdPaymentMethod, act => act.MapFrom(src => src.IdPaymentMethod))
                      .ForMember(dest => dest.Order, act => act.MapFrom(src => src.Order != null ? src.Order.Count() : src.Id))
                      .ReverseMap()
-                     .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                      .ForMember(dest => dest.IdDesk, act => act.MapFrom(src => src.IdDesk))
                      .ForMember(dest => dest.IdUser, act => act.MapFrom(src => src.IdUser))
                      .ForMember(dest => dest.IdPaymentMethod, act => act.MapFrom(src => src.IdPaymentMethod))
@@ -64,7 +60,6 @@ namespace Menu.Business.UniversalClassesConcrete
                      .ForMember(dest => dest.Product, act => act.MapFrom(src => src.Product != null ? src.Product.Count() : src.Id))
                      .ForMember(dest => dest.SubCategory, act => act.MapFrom(src => src.SubCategory != null ? src.SubCategory.Count() : src.Id))
                      .ReverseMap()
-                     .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                      .ForMember(dest => dest.Package, act => act.Ignore())
                      .ForMember(dest => dest.Product, act => act.Ignore())
                      .ForMember(dest => dest.SubCategory, act => act.Ignore())
@@ -74,7 +69,6 @@ namespace Menu.Business.UniversalClassesConcrete
                      .ForMember(dest => dest.IdCountry, act => act.MapFrom(src => src.IdCountry))
                      .ForMember(dest => dest.State, act => act.MapFrom(src => src.State != null ? src.State.Count() : src.Id))
                      .ReverseMap()
-                     .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                      .ForMember(dest => dest.State, act => act.Ignore())
                      .ForMember(dest => dest.IdCountry, act => act.MapFrom(src => src.IdCountry));
 
@@ -87,7 +81,6 @@ namespace Menu.Business.UniversalClassesConcrete
                      .ForMember(dest => dest.Menu, act => act.MapFrom(src => src.Menu != null ? src.Menu.Count() : src.Id))
                      .ForMember(dest => dest.UserCompany_C, act => act.MapFrom(src => src.UserCompany_C != null ? src.UserCompany_C.Count() : src.Id))
                      .ReverseMap()
-                     .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                      .ForMember(dest => dest.Package, act => act.Ignore())
                      .ForMember(dest => dest.Product, act => act.Ignore())
                      .ForMember(dest => dest.Category, act => act.Ignore())
@@ -108,7 +101,6 @@ namespace Menu.Business.UniversalClassesConcrete
 
                     .ForMember(dest => dest.IdPerson, act => act.MapFrom(src => src.IdPerson))
                     .ReverseMap()
-                    .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                     .ForMember(dest => dest.IdPerson, act => act.MapFrom(src => src.IdPerson));
 
                     cfg.CreateMap<Desk, Desk_DTO>()
@@ -116,7 +108,6 @@ namespace Menu.Business.UniversalClassesConcrete
                    .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany))
                    .ForMember(dest => dest.Bill, act => act.MapFrom(src => src.Bill != null ? src.Bill.Count() : src.Id))
                    .ReverseMap()
-                   .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                    .ForMember(dest => dest.Bill, act => act.Ignore())
                    .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany));
 
@@ -125,7 +116,6 @@ namespace Menu.Business.UniversalClassesConcrete
                    .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany))
                    .ForMember(dest => dest.MenuPackageProduct_C, act => act.MapFrom(src => src.MenuPackageProduct_C != null ? src.MenuPackageProduct_C.Count() : src.Id))
                    .ReverseMap()
-                   .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                    .ForMember(dest => dest.MenuPackageProduct_C, act => act.Ignore())
                    .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany));
 
@@ -136,7 +126,6 @@ namespace Menu.Business.UniversalClassesConcrete
                    .ForMember(dest => dest.IdProduct, act => act.MapFrom(src => src.IdProduct))
                    .ForMember(dest => dest.OrderPackageProduct_C, act => act.MapFrom(src => src.OrderPackageProduct_C != null ? src.OrderPackageProduct_C.Count() : src.Id))
                    .ReverseMap()
-                   .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                    .ForMember(dest => dest.OrderPackageProduct_C, act => act.Ignore())
                    .ForMember(dest => dest.IdPackage, act => act.MapFrom(src => src.IdPackage))
                    .ForMember(dest => dest.IdProduct, act => act.MapFrom(src => src.IdProduct))
@@ -148,7 +137,6 @@ namespace Menu.Business.UniversalClassesConcrete
                   .ForMember(dest => dest.IdBill, act => act.MapFrom(src => src.IdBill))
                   .ForMember(dest => dest.OrderPackageProduct_C, act => act.MapFrom(src => src.OrderPackageProduct_C != null ? src.OrderPackageProduct_C.Count() : src.Id))
                   .ReverseMap()
-                  .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                   .ForMember(dest => dest.OrderPackageProduct_C, act => act.Ignore())
                   .ForMember(dest => dest.IdBill, act => act.MapFrom(src => src.IdBill));
 
@@ -157,7 +145,6 @@ namespace Menu.Business.UniversalClassesConcrete
                   .ForMember(dest => dest.IdOrder, act => act.MapFrom(src => src.IdOrder))
                   .ForMember(dest => dest.IdMenuPackageProduct_C, act => act.MapFrom(src => src.IdMenuPackageProduct_C))
                   .ReverseMap()
-                  .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                   .ForMember(dest => dest.IdOrder, act => act.MapFrom(src => src.IdOrder))
                   .ForMember(dest => dest.IdMenuPackageProduct_C, act => act.MapFrom(src => src.IdMenuPackageProduct_C));
 
@@ -169,7 +156,6 @@ namespace Menu.Business.UniversalClassesConcrete
                    .ForMember(dest => dest.MenuPackageProduct_C, act => act.MapFrom(src => src.MenuPackageProduct_C != null ? src.MenuPackageProduct_C.Count() : src.Id))
                    .ForMember(dest => dest.PackageProduct_C, act => act.MapFrom(src => src.PackageProduct_C != null ? src.PackageProduct_C.Count() : src.Id))
                   .ReverseMap()
-                  .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                   .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany))
                   .ForMember(dest => dest.IdCategory, act => act.MapFrom(src => src.IdCategory))
                   .ForMember(dest => dest.IdSubCategory, act => act.MapFrom(src => src.IdSubCategory))
@@ -183,7 +169,6 @@ namespace Menu.Business.UniversalClassesConcrete
                  .ForMember(dest => dest.IdProduct, act => act.MapFrom(src => src.IdProduct))
                  
                  .ReverseMap()
-                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                  .ForMember(dest => dest.IdPackage, act => act.MapFrom(src => src.IdPackage))
                  .ForMember(dest => dest.IdProduct, act => act.MapFrom(src => src.IdProduct));
 
@@ -191,7 +176,6 @@ namespace Menu.Business.UniversalClassesConcrete
 
                    .ForMember(dest => dest.Bill, act => act.MapFrom(src => src.Bill != null ? src.Bill.Count() : src.Id))
                   .ReverseMap()
-                  .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                   .ForMember(dest => dest.Bill, act => act.Ignore());
 
                     cfg.CreateMap<Person, Person_DTO>()
@@ -200,7 +184,6 @@ namespace Menu.Business.UniversalClassesConcrete
                    .ForMember(dest => dest.Customer, act => act.MapFrom(src => src.Customer != null ? src.Customer.Count() : src.Id))
                    .ForMember(dest => dest.User, act => act.MapFrom(src => src.User != null ? src.User.Count() : src.Id))
                   .ReverseMap()
-                  .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                  .ForMember(dest => dest.Adress_C, act => act.Ignore())
                   .ForMember(dest => dest.Customer, act => act.Ignore())
                   .ForMember(dest => dest.User, act => act.Ignore());
@@ -214,7 +197,6 @@ namespace Menu.Business.UniversalClassesConcrete
                   .ForMember(dest => dest.MenuPackageProduct_C, act => act.MapFrom(src => src.MenuPackageProduct_C != null ? src.MenuPackageProduct_C.Count() : src.Id))
                   .ForMember(dest => dest.PackageProduct_C, act => act.MapFrom(src => src.PackageProduct_C != null ? src.PackageProduct_C.Count() : src.Id))
                  .ReverseMap()
-                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                  .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany))
                  .ForMember(dest => dest.IdCategory, act => act.MapFrom(src => src.IdCategory))
                  .ForMember(dest => dest.IdSubCategory, act => act.MapFrom(src => src.IdSubCategory))
@@ -225,7 +207,6 @@ namespace Menu.Business.UniversalClassesConcrete
 
                   .ForMember(dest => dest.UserCompany_C, act => act.MapFrom(src => src.UserCompany_C != null ? src.UserCompany_C.Count() : src.Id))
                  .ReverseMap()
-                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                  .ForMember(dest => dest.UserCompany_C, act => act.Ignore());
 
                     cfg.CreateMap<State, State_DTO>()
@@ -234,7 +215,6 @@ namespace Menu.Business.UniversalClassesConcrete
                
                   .ForMember(dest => dest.Adress, act => act.MapFrom(src => src.Adress != null ? src.Adress.Count() : src.Id))
                  .ReverseMap()
-                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                  .ForMember(dest => dest.IdCity, act => act.MapFrom(src => src.IdCity))
                  .ForMember(dest => dest.Adress, act => act.Ignore());
 
@@ -245,7 +225,7 @@ namespace Menu.Business.UniversalClassesConcrete
                   .ForMember(dest => dest.Package, act => act.MapFrom(src => src.Package != null ? src.Package.Count() : src.Id))
                   .ForMember(dest => dest.Product, act => act.MapFrom(src => src.Product != null ? src.Product.Count() : src.Id))
                  .ReverseMap()
-                .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
+                
                  .ForMember(dest => dest.IdCategory, act => act.MapFrom(src => src.IdCategory))
                  .ForMember(dest => dest.Package, act => act.Ignore())
                  .ForMember(dest => dest.Product, act => act.Ignore());
@@ -256,7 +236,6 @@ namespace Menu.Business.UniversalClassesConcrete
                   .ForMember(dest => dest.Bill, act => act.MapFrom(src => src.Bill != null ? src.Bill.Count() : src.Id))
                   .ForMember(dest => dest.UserCompany_C, act => act.MapFrom(src => src.UserCompany_C != null ? src.UserCompany_C.Count() : src.Id))
                  .ReverseMap()
-                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                  .ForMember(dest => dest.IdPerson, act => act.MapFrom(src => src.IdPerson))
                  .ForMember(dest => dest.Bill, act => act.Ignore())
                  .ForMember(dest => dest.UserCompany_C, act => act.Ignore());
@@ -268,7 +247,6 @@ namespace Menu.Business.UniversalClassesConcrete
                  .ForMember(dest => dest.IdUser, act => act.MapFrom(src => src.IdUser))
 
                  .ReverseMap()
-                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id == null ? src.Id : 0))
                  .ForMember(dest => dest.IdCompany, act => act.MapFrom(src => src.IdCompany))
                  .ForMember(dest => dest.IdRole, act => act.MapFrom(src => src.IdRole))
                  .ForMember(dest => dest.IdUser, act => act.MapFrom(src => src.IdUser));
