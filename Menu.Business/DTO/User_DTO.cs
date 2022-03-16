@@ -33,11 +33,11 @@ namespace Menu.Business.DTO
         public string PasswordAnswer { get; set; }
 
 
-        public int Bill { get; set; }
+        //public int Bill { get; set; }
 
         //public Person_DTO Person { get; set; }
 
 
-        public int UserCompany_C { get; set; }
+        //public int UserCompany_C { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace Menu.Business.DTO
         public string QrCode { get; set; }
 
 
-        public int Bill { get; set; }
+        //public int Bill { get; set; }
 
         //public int Company { get; set; }
     }

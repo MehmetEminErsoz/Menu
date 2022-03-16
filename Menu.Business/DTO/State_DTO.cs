@@ -21,7 +21,7 @@ namespace Menu.Business.DTO
         public int IdCity { get; set; }
 
 
-        public int Adress { get; set; }
+        //public int Adress { get; set; }
 
         //public  City_DTO City { get; set; }
     }

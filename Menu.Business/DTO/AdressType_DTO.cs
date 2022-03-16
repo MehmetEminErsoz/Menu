@@ -15,6 +15,6 @@ namespace Menu.Business.DTO
         public bool IsActive { get; set; }
         public DateTime CreateTime { get; set; }
 
-        public  int Adress_C { get; set; }
+        //public  int Adress_C { get; set; }
     }
 }

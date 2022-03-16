@@ -43,12 +43,12 @@ namespace Menu.Business.DTO
         public string Password { get; set; }
 
 
-        public int Adress_C { get; set; }
+        //public int Adress_C { get; set; }
 
 
-        public int Customer { get; set; }
+        //public int Customer { get; set; }
 
 
-        public int User { get; set; }
+        //public int User { get; set; }
     }
 }

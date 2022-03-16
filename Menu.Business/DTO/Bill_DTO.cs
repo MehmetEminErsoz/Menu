@@ -37,6 +37,6 @@ namespace Menu.Business.DTO
 
 
         //Diğer tablo referanslarını int olarak tanımladım.
-        public  int Order { get; set; }
+        //public  int Order { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace Menu.DataAccess.Concrete
 
         public Target add(Target record)
         {
+            
             genericTable.Add(record);
             db.SaveChanges();
 

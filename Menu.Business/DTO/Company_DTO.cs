@@ -18,21 +18,21 @@ namespace Menu.Business.DTO
         [StringLength(50)]
         public string Name { get; set; }
 
-        public  int Package { get; set; }
+        //public  int Package { get; set; }
 
-        public int Category { get; set; }
+        //public int Category { get; set; }
 
-        public int Product { get; set; }
+        //public int Product { get; set; }
 
-        public int Adress_C { get; set; }
-
-
-        public int Desk { get; set; }
+        //public int Adress_C { get; set; }
 
 
-        public int Menu { get; set; }
+        //public int Desk { get; set; }
 
 
-        public int UserCompany_C { get; set; }
+        //public int Menu { get; set; }
+
+
+        //public int UserCompany_C { get; set; }
     }
 }

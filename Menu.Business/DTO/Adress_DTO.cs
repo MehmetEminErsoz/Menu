@@ -19,7 +19,7 @@ namespace Menu.Business.DTO
         [Required]
         public string Adressline { get; set; }
 
-        public int Adress_C { get; set; }
+        //public int Adress_C { get; set; }
 
         //public  State_DTO State { get; set; }
     }

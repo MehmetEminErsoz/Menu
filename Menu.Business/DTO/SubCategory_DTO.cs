@@ -23,9 +23,9 @@ namespace Menu.Business.DTO
        // public virtual Category_DTO Category { get; set; }
 
 
-        public int Package { get; set; }
+        //public int Package { get; set; }
 
 
-        public int Product { get; set; }
+        //public int Product { get; set; }
     }
 }

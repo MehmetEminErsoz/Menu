@@ -28,6 +28,6 @@ namespace Menu.Business.DTO
         public  Product_DTO Product { get; set; }
 
         */
-        public int OrderPackageProduct_C { get; set; }
+        //public int OrderPackageProduct_C { get; set; }
     }
 }

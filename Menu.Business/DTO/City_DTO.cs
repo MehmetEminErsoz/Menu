@@ -27,7 +27,7 @@ namespace Menu.Business.DTO
         //public  Country_DTO Country { get; set; }
 
         //Diğer tablo referanslarını int olarak tanımladım.
-        public int State { get; set; }
+        //public int State { get; set; }
 
     }
 }

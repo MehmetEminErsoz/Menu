@@ -21,6 +21,6 @@ namespace Menu.Business.DTO
         public string Name { get; set; }
 
 
-        public int UserCompany_C { get; set; }
+        //public int UserCompany_C { get; set; }
     }
 }

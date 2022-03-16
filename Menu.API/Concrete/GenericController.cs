@@ -1,4 +1,5 @@
 ﻿
+using Menu.Business;
 using Menu.Business.Abstract;
 using Menu.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -42,12 +43,8 @@ namespace Menu.API.Concrete
         [HttpPost]
         public IActionResult Post([FromBody] TargetDTO record)
         {
-
             var result = service.add(record);
-
-           // return CreatedAtAction("get", new { id = ((IEntityWithId)result).Id }, true);
-           return Ok(result);
-
+           return CreatedAtAction("get", new { id = ((IDtoWithId)result).Id }, true); ;
         }
 
 
@@ -72,10 +69,12 @@ namespace Menu.API.Concrete
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] TargetDTO record)
         {
-            /*if (id != ((IEntityWithId)record).Id)
+            
+            if (id != ((IDtoWithId)record).Id)
             {
+
                 return BadRequest();
-            }*/
+            }
 
             var result = service.update(id, record);
             if (result)

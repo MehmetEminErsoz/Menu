@@ -25,10 +25,10 @@ namespace Menu.Business.DTO
         
 
         //Diğer tablo referanslarını int olarak tanımladım.
-        public int Package { get; set; }
+        //public int Package { get; set; }
 
-        public int Product { get; set; }
+        //public int Product { get; set; }
 
-        public int SubCategory { get; set; }
+        //public int SubCategory { get; set; }
     }
 }

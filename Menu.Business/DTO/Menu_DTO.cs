@@ -23,6 +23,6 @@ namespace Menu.Business.DTO
         //public  Company_DTO Company { get; set; }
 
 
-        public int MenuPackageProduct_C { get; set; }
+        //public int MenuPackageProduct_C { get; set; }
     }
 }
