@@ -3,13 +3,15 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Menu.Entities;
 using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Menu.DataAccess
 {
-    public class MenuDbContext : DbContext
+    public class MenuDbContext :IdentityDbContext<IdentityUser>
     {
         DbContextOptions options;
-        public MenuDbContext(DbContextOptions _options) : base(_options)
+        public MenuDbContext(DbContextOptions<MenuDbContext> _options) : base(_options)
         {
             options= _options;
         }
@@ -40,6 +42,7 @@ namespace Menu.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Adress>()
                 .HasOne(s => s.State)
                 .WithMany(s => s.Adress)
