@@ -31,20 +31,12 @@ namespace Menu.Entities
         [StringLength(50)]
         public string Surname { get; set; }
 
-        public DateTime RegisterDate { get; set; }
-
-        public DateTime LastLoginDate { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime Birthday { get; set; }
-
-        public bool IsEmailConfirmed { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Mail { get; set; }
-
-        public byte AccessFailedCount { get; set; }
 
         [Required]
         [StringLength(50)]

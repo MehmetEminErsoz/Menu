@@ -17,6 +17,7 @@ namespace Menu.Business.DTO
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        public int DeskCount { get; set; }
 
         //public  int Package { get; set; }
 

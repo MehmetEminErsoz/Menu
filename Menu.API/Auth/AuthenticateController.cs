@@ -51,7 +51,8 @@ namespace JWTAuthentication.NET6._0.Controllers
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    expiration = token.ValidTo.AddHours(3)
+                    
                 });
             }
             return Unauthorized();
@@ -71,13 +72,30 @@ namespace JWTAuthentication.NET6._0.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
                 
             };
+
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
+
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            if (!await _roleManager.RoleExistsAsync(UserRoles.User))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+            if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+            }
+            if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.User);
+            }
+
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
         
+       
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
@@ -90,7 +108,7 @@ namespace JWTAuthentication.NET6._0.Controllers
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                
+                UserName = model.Email
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -104,6 +122,7 @@ namespace JWTAuthentication.NET6._0.Controllers
             if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                
             }
             if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
             {
@@ -126,5 +145,7 @@ namespace JWTAuthentication.NET6._0.Controllers
 
             return token;
         }
+
+        
     }
 }

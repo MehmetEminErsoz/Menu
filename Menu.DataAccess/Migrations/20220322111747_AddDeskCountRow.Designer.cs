@@ -4,6 +4,7 @@ using Menu.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Menu.DataAccess.Migrations
 {
     [DbContext(typeof(MenuDbContext))]
-    partial class MenuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322111747_AddDeskCountRow")]
+    partial class AddDeskCountRow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -633,6 +635,9 @@ namespace Menu.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<byte>("AccessFailedCount")
+                        .HasColumnType("tinyint");
+
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("date");
 
@@ -644,6 +649,12 @@ namespace Menu.DataAccess.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastLoginDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Mail")
                         .IsRequired()
@@ -659,6 +670,9 @@ namespace Menu.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Surname")
                         .IsRequired()

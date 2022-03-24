@@ -17,7 +17,7 @@ namespace Menu.Entities
 
         [Required]
         [StringLength(15)]
-        public string IpAdress { get; set; }
+        public string? IpAdress { get; set; }
 
         public bool IsApproved { get; set; }
 

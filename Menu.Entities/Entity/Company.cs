@@ -26,7 +26,7 @@ namespace Menu.Entities
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
-
+        public int? DeskCount { get; set; }
         public  ICollection<Package> Package { get; set; }
         public  ICollection<Category> Category { get; set; }
         public  ICollection<Product> Product { get; set; }
