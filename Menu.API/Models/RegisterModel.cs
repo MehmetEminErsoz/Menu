@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JWTAuthentication.NET6._0.Auth
 {
@@ -13,5 +14,13 @@ namespace JWTAuthentication.NET6._0.Auth
 
         [Required(ErrorMessage = "Password is required")]
         public string? Password { get; set; }
+
+
+        public string? Name { get; set; }
+
+        public string? Surname { get; set; }
+
+        [Column(TypeName ="date")]
+        public DateTime? Birthday { get; set; }
     }
 }

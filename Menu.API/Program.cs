@@ -124,7 +124,7 @@ builder.Services.AddScoped<IGenericService<User_DTO>, UserManager>();
 builder.Services.AddSingleton<IFunctions, Functions>();
 
 builder.Services.AddDbContext<MenuDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDb")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDb2")));
 
 
 //identity

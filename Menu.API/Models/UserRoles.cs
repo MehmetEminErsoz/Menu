@@ -4,6 +4,7 @@
     {
         public const string Admin = "Admin";
         public const string User = "User";
-        public const string SAdmin = "Super Admin";
+        public const string SAdmin = "SAdmin";
+        public const string Waiter = "Waiter";
     }
 }
