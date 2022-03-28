@@ -123,8 +123,11 @@ namespace Menu.API.Auth
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new Response { Status = "Error", Message ="Kullanıcı eklenemedi ! Lütfen bilgileri doğrulayın." });
 
-
-            Personekle(model);
+            if (result.Succeeded)
+            {
+                Personekle(model);
+            }
+            
             
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
@@ -164,14 +167,18 @@ namespace Menu.API.Auth
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
-            Personekle(model);
+            if (result.Succeeded)
+            {
+                Personekle(model);
+            }
+            
             
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
 
         [HttpPost]
-        [Authorize(Roles = "SAdmin")]
+        //[Authorize(Roles = "SAdmin")]
         [Route("Register-SAdmin")]
         public async Task<IActionResult> SAdmin([FromBody] RegisterModel model)
         {
@@ -210,8 +217,11 @@ namespace Menu.API.Auth
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
-
-            Personekle(model);
+            if (result.Succeeded)
+            {
+                Personekle(model);
+            }
+            
             return Ok(new Response { Status = "Success", Message = "Super Admin created successfully!" });
         }
         [HttpPost]
@@ -248,8 +258,11 @@ namespace Menu.API.Auth
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
-
-            Personekle(model);
+            if (result.Succeeded)
+            {
+                Personekle(model);
+            }
+            
             return Ok(new Response { Status = "Success", Message = "Garson başarıyla eklendi!" });
         }
         private JwtSecurityToken GetToken(List<Claim> authClaims)

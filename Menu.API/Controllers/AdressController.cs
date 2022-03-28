@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Menu.API.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AdressController : GenericController<Adress_DTO>

@@ -2,6 +2,7 @@
 using Menu.Business;
 using Menu.Business.Abstract;
 using Menu.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Menu.API.Concrete
@@ -15,6 +16,7 @@ namespace Menu.API.Concrete
         {
             service = _service;
         }
+        [Authorize(Roles = "User")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -25,7 +27,7 @@ namespace Menu.API.Concrete
             }
             return NotFound();
         }
-
+        [Authorize(Roles = "User")]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -40,6 +42,7 @@ namespace Menu.API.Concrete
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Post([FromBody] TargetDTO record)
         {
@@ -48,7 +51,7 @@ namespace Menu.API.Concrete
         }
 
 
-
+        [Authorize(Roles = "SAdmin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -65,7 +68,7 @@ namespace Menu.API.Concrete
 
 
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] TargetDTO record)
         {
