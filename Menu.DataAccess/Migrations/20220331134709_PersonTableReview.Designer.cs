@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Menu.DataAccess.Migrations
 {
     [DbContext(typeof(MenuDbContext))]
-    [Migration("20220322111747_AddDeskCountRow")]
-    partial class AddDeskCountRow
+    [Migration("20220331134709_PersonTableReview")]
+    partial class PersonTableReview
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,8 +75,8 @@ namespace Menu.DataAccess.Migrations
                     b.Property<int?>("IdCompany")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdPerson")
-                        .HasColumnType("int");
+                    b.Property<string>("IdPerson")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -309,8 +309,8 @@ namespace Menu.DataAccess.Migrations
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("IdPerson")
-                        .HasColumnType("int");
+                    b.Property<string>("IdPerson")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IpAdress")
                         .IsRequired()
@@ -627,63 +627,6 @@ namespace Menu.DataAccess.Migrations
                     b.ToTable("PaymentMethod");
                 });
 
-            modelBuilder.Entity("Menu.Entities.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<byte>("AccessFailedCount")
-                        .HasColumnType("tinyint");
-
-                    b.Property<DateTime>("Birthday")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("CreateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsEmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastLoginDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Mail")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("RegisterDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Person");
-                });
-
             modelBuilder.Entity("Menu.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -727,33 +670,6 @@ namespace Menu.DataAccess.Migrations
                     b.HasIndex("IdSubCategory");
 
                     b.ToTable("Product");
-                });
-
-            modelBuilder.Entity("Menu.Entities.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("Menu.Entities.State", b =>
@@ -831,8 +747,8 @@ namespace Menu.DataAccess.Migrations
                     b.Property<DateTime>("CreateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("IdPerson")
-                        .HasColumnType("int");
+                    b.Property<string>("IdPerson")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -881,8 +797,8 @@ namespace Menu.DataAccess.Migrations
                     b.Property<int?>("IdCompany")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdRole")
-                        .HasColumnType("int");
+                    b.Property<string>("IdRole")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("IdUser")
                         .HasColumnType("int");
@@ -913,6 +829,10 @@ namespace Menu.DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -929,6 +849,8 @@ namespace Menu.DataAccess.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -966,6 +888,10 @@ namespace Menu.DataAccess.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -1019,6 +945,8 @@ namespace Menu.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -1100,6 +1028,51 @@ namespace Menu.DataAccess.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Menu.Entities.Person", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasDiscriminator().HasValue("Person");
+                });
+
+            modelBuilder.Entity("Menu.Entities.Role", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasDiscriminator().HasValue("Role");
                 });
 
             modelBuilder.Entity("Menu.Entities.Adress", b =>
@@ -1488,25 +1461,11 @@ namespace Menu.DataAccess.Migrations
                     b.Navigation("Bill");
                 });
 
-            modelBuilder.Entity("Menu.Entities.Person", b =>
-                {
-                    b.Navigation("Adress_C");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Menu.Entities.Product", b =>
                 {
                     b.Navigation("MenuPackageProduct_C");
 
                     b.Navigation("PackageProduct_C");
-                });
-
-            modelBuilder.Entity("Menu.Entities.Role", b =>
-                {
-                    b.Navigation("UserCompany_C");
                 });
 
             modelBuilder.Entity("Menu.Entities.State", b =>
@@ -1525,6 +1484,20 @@ namespace Menu.DataAccess.Migrations
                 {
                     b.Navigation("Bill");
 
+                    b.Navigation("UserCompany_C");
+                });
+
+            modelBuilder.Entity("Menu.Entities.Person", b =>
+                {
+                    b.Navigation("Adress_C");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Menu.Entities.Role", b =>
+                {
                     b.Navigation("UserCompany_C");
                 });
 #pragma warning restore 612, 618

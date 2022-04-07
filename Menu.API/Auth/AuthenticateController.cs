@@ -45,7 +45,7 @@ namespace Menu.API.Auth
                 Name = model.Name,
                 Surname = model.Surname,
                 Birthday = (DateTime)model.Birthday,
-                Mail = model.Email,
+                Email = model.Email,
                 Password = model.Password,
                 IsDeleted = false,
                 IsActive = true,
@@ -110,14 +110,21 @@ namespace Menu.API.Auth
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
 
-            IdentityUser user = new()
+            Person_DTO person = new()
             {
+                Birthday = (DateTime)model.Birthday,
+                Name=model.Name,
+                Surname=model.Surname,
+                IsActive = true,
+                IsDeleted=false,
                 Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName =model.Email
+                SecurityStamp=Guid.NewGuid().ToString(),
+                UserName =model.Email,
+                PhoneNumber =model.PhoneNumber,
             };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
+            /*
+            var result = await _userManager.CreateAsync(person, model.Password);
+           
             if (!result.Succeeded)
                 
                 return StatusCode(StatusCodes.Status500InternalServerError,
@@ -129,7 +136,8 @@ namespace Menu.API.Auth
             }
             
             
-
+            */
+            _personManager.add(person);
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
         

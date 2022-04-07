@@ -19,7 +19,7 @@ namespace Menu.Entities
         public Company? Company { get; set; }
 
         [ForeignKey("IdRole")]
-        public int? IdRole { get; set; }
+        public string? IdRole { get; set; }
         public Role? Role { get; set; }
 
         [ForeignKey("IdUser")]

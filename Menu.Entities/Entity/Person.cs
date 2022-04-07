@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Menu.Entities
 {
-    public class Person : IEntityWithIdName
+    public class Person : IdentityUser
     {
         
         public Person()
@@ -18,7 +19,7 @@ namespace Menu.Entities
             User = new HashSet<User>();
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateTime { get; set; }
@@ -33,14 +34,7 @@ namespace Menu.Entities
 
         [Column(TypeName = "date")]
         public DateTime Birthday { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Mail { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Password { get; set; }
+        
 
         public ICollection<Adress_C> Adress_C { get; set; }
         public ICollection<Customer> Customer { get; set; }

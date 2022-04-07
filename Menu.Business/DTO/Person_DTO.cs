@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.DTO
 {
-    public class Person_DTO :IDtoWithIdName
+    public class Person_DTO :IdentityUser
     {
         public int Id { get; set; }
         public bool IsDeleted { get; set; }
@@ -31,7 +32,7 @@ namespace Menu.Business.DTO
 
         [Required]
         [StringLength(50)]
-        public string Mail { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [StringLength(50)]
