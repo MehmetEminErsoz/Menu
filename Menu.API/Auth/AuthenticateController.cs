@@ -18,7 +18,7 @@ namespace Menu.API.Auth
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private IGenericService<Person_DTO> _personManager;
+        public IPersonService _personManager;
         private readonly IConfiguration _configuration;
 
         public AuthenticateController(
@@ -26,7 +26,7 @@ namespace Menu.API.Auth
 
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            IGenericService<Person_DTO> personManager,
+            IPersonService personManager,
             IConfiguration configuration)
         {
             
@@ -71,7 +71,7 @@ namespace Menu.API.Auth
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user =  _personManager.getByEmail(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -97,7 +97,7 @@ namespace Menu.API.Auth
                     
                 });
             }
-            return Unauthorized();
+            return Unauthorized(new Response { Message="İdentity olarak rolü yok" ,  Status="Login sorgulaması yapılacak"});
         }
 
        
@@ -106,10 +106,14 @@ namespace Menu.API.Auth
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByEmailAsync(model.Email);
-            if (userExists != null)
+            var userExists =  _personManager.getByEmail(model.Email);
+            if (userExists  != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
 
+            var passwordHasher = new PasswordHasher<Person_DTO>();
+            var user = new Person_DTO();
+            var hashedPassword = passwordHasher.HashPassword(user, model.Password);
+            //burda iki tane person tanımlamış oluyoruz ramde yer ayırılmış oluyor bunu düzeltmek lazım.
             Person_DTO person = new()
             {
                 Birthday = (DateTime)model.Birthday,
@@ -121,23 +125,21 @@ namespace Menu.API.Auth
                 SecurityStamp=Guid.NewGuid().ToString(),
                 UserName =model.Email,
                 PhoneNumber =model.PhoneNumber,
+                PasswordHash=hashedPassword,
+                CreateTime=DateTime.Now,
             };
-            /*
-            var result = await _userManager.CreateAsync(person, model.Password);
-           
-            if (!result.Succeeded)
-                
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new Response { Status = "Error", Message ="Kullanıcı eklenemedi ! Lütfen bilgileri doğrulayın." });
 
-            if (result.Succeeded)
+           _personManager.add(person);
+
+            /*
+            if (!await _roleManager.RoleExistsAsync(UserRoles.User))
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+            if (await _roleManager.RoleExistsAsync(UserRoles.User))
             {
-                Personekle(model);
+                await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
-            
-            
             */
-            _personManager.add(person);
+
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
         
@@ -184,7 +186,7 @@ namespace Menu.API.Auth
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
-
+        
         [HttpPost]
         //[Authorize(Roles = "SAdmin")]
         [Route("Register-SAdmin")]

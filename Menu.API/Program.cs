@@ -121,6 +121,9 @@ builder.Services.AddScoped<IGenericService<UserCompany_C_DTO>, UserCompany_CMana
 builder.Services.AddScoped<IGenericRepository<User>, UserRepository>();
 builder.Services.AddScoped<IGenericService<User_DTO>, UserManager>();
 
+builder.Services.AddScoped<IPersonRepository,PersonRepository >();
+builder.Services.AddScoped<IPersonService, PersonManager>();
+
 builder.Services.AddSingleton<IFunctions, Functions>();
 
 builder.Services.AddDbContext<MenuDbContext>(options =>

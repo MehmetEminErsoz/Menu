@@ -13,5 +13,6 @@ namespace Menu.Business.Abstract
         public bool remove(int id);
         public TargetDTO getByID(int id);
         public bool update(int id, TargetDTO record);
+        
     }
 }

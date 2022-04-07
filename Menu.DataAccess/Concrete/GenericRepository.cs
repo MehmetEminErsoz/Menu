@@ -59,6 +59,8 @@ namespace Menu.DataAccess.Concrete
             return (Target)result;
         }
 
+        
+
         public virtual bool remove(int id)
         {
             var result = getById(id);
