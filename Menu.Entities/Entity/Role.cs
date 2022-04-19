@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Menu.Entities.Entity;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,15 +17,19 @@ namespace Menu.Entities
             UserCompany_C = new HashSet<UserCompany_C>();
         }
 
-        public string Id { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsActive { get; set; }
-        public DateTime CreateTime { get; set; }
+        public override string Id { get; set; }
+        public bool? IsDeleted { get; set; }
+        public bool? IsActive { get; set; }
+        public DateTime? CreateTime { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         public ICollection<UserCompany_C> UserCompany_C { get; set; }
+
+
+        public ICollection<PersonRoles> PersonRoles { get; set; }
+
     }
 }

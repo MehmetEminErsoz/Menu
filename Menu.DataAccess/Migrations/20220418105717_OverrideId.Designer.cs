@@ -4,6 +4,7 @@ using Menu.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Menu.DataAccess.Migrations
 {
     [DbContext(typeof(MenuDbContext))]
-    partial class MenuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220418105717_OverrideId")]
+    partial class OverrideId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1007,17 +1009,11 @@ namespace Menu.DataAccess.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -1037,13 +1033,6 @@ namespace Menu.DataAccess.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Menu.Entities.Entity.PersonRoles", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
-
-                    b.HasDiscriminator().HasValue("PersonRoles");
                 });
 
             modelBuilder.Entity("Menu.Entities.Person", b =>
@@ -1401,25 +1390,6 @@ namespace Menu.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Menu.Entities.Entity.PersonRoles", b =>
-                {
-                    b.HasOne("Menu.Entities.Role", "Role")
-                        .WithMany("PersonRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Menu.Entities.Person", "Person")
-                        .WithMany("PersonRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("Menu.Entities.Adress", b =>
                 {
                     b.Navigation("Adress_C");
@@ -1535,8 +1505,6 @@ namespace Menu.DataAccess.Migrations
 
                     b.Navigation("Customer");
 
-                    b.Navigation("PersonRoles");
-
                     b.Navigation("User");
 
                     b.Navigation("Users");
@@ -1544,8 +1512,6 @@ namespace Menu.DataAccess.Migrations
 
             modelBuilder.Entity("Menu.Entities.Role", b =>
                 {
-                    b.Navigation("PersonRoles");
-
                     b.Navigation("UserCompany_C");
                 });
 #pragma warning restore 612, 618

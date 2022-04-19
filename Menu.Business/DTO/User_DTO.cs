@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.DTO
 {
-    public class User_DTO : IDtoWithId
+    public class User_DTO 
     {
         public int Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateTime { get; set; }
 
-        public int IdPerson { get; set; }
+        public string IdPerson { get; set; }
 
         [Required]
         [StringLength(50)]

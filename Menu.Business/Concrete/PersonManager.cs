@@ -1,4 +1,5 @@
-﻿using Menu.Business.Abstract;
+﻿using AutoMapper;
+using Menu.Business.Abstract;
 using Menu.Business.DTO;
 using Menu.Business.UniversalClassesAbstract;
 using Menu.DataAccess.Abstract;
@@ -15,6 +16,7 @@ namespace Menu.Business.Concrete
     {
         IGenericRepository<Person> repository;
         IFunctions functions;
+        Mapper mapper;
         public PersonManager(IGenericRepository<Person> _repository, IFunctions _functions) : base(_repository, _functions)
         {
             repository = _repository;
@@ -26,9 +28,28 @@ namespace Menu.Business.Concrete
         {
 
             var x = repository.getAll();
-
-            var z = x.FirstOrDefault(x => x.Email.Contains(mail));
+            
+            var z = x.Where(s=>s.Email==mail).FirstOrDefault();
             return z;
+        }
+
+        public bool addWithRole(Person_DTO person , Role_DTO role)
+        {
+
+            if (role == null || person==null)
+            {
+                return false;
+            }
+
+            Person person1 = new Person();
+            person1 =mapper.Map(person,person1);
+            var AddedRecord = repository.add(person1);
+            var recordDTO = mapper.Map<Person_DTO>(AddedRecord);
+
+
+
+            
+            return true;
         }
 
         

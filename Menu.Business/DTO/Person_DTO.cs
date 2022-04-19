@@ -11,7 +11,7 @@ namespace Menu.Business.DTO
 {
     public class Person_DTO :IdentityUser
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateTime { get; set; }

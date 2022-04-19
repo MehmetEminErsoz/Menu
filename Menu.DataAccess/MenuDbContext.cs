@@ -5,6 +5,7 @@ using Menu.Entities;
 using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Menu.Entities.Entity;
 
 namespace Menu.DataAccess
 {
@@ -40,9 +41,21 @@ namespace Menu.DataAccess
         public  DbSet<User> User { get; set; }
         public  DbSet<UserCompany_C> UserCompany_C { get; set; }
 
+        public DbSet<PersonRoles> personRoles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<PersonRoles>()
+                .HasOne(s => s.Person)
+                .WithMany(s => s.PersonRoles)
+                .HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<PersonRoles>()
+               .HasOne(s => s.Role)
+               .WithMany(s => s.PersonRoles)
+               .HasForeignKey(s => s.RoleId);
+
             modelBuilder.Entity<Adress>()
                 .HasOne(s => s.State)
                 .WithMany(s => s.Adress)

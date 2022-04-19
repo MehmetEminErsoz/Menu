@@ -1,5 +1,4 @@
 ﻿using Menu.Business.DTO;
-using Menu.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.Abstract
 {
-    public interface IPersonService : IGenericService<Person_DTO>
+    public interface IRoleService : IGenericService<Role_DTO>
     {
-        public Person getByEmail(string mail);
-        
+
     }
 }

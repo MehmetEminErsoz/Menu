@@ -124,6 +124,7 @@ builder.Services.AddScoped<IGenericService<User_DTO>, UserManager>();
 builder.Services.AddScoped<IPersonRepository,PersonRepository >();
 builder.Services.AddScoped<IPersonService, PersonManager>();
 
+
 builder.Services.AddSingleton<IFunctions, Functions>();
 
 builder.Services.AddDbContext<MenuDbContext>(options =>
@@ -132,6 +133,7 @@ builder.Services.AddDbContext<MenuDbContext>(options =>
 
 //identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MenuDbContext>()
     .AddDefaultTokenProviders();
 
