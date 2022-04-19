@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Menu.DataAccess.Migrations
 {
     [DbContext(typeof(MenuDbContext))]
-    [Migration("20220331134709_PersonTableReview")]
-    partial class PersonTableReview
+    [Migration("20220418114735_reviewPersonRoles")]
+    partial class reviewPersonRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -918,6 +918,9 @@ namespace Menu.DataAccess.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PersonId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -943,6 +946,8 @@ namespace Menu.DataAccess.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("AspNetUsers", (string)null);
 
@@ -1004,11 +1009,17 @@ namespace Menu.DataAccess.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -1028,6 +1039,13 @@ namespace Menu.DataAccess.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Menu.Entities.Entity.PersonRoles", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
+
+                    b.HasDiscriminator().HasValue("PersonRoles");
                 });
 
             modelBuilder.Entity("Menu.Entities.Person", b =>
@@ -1063,13 +1081,13 @@ namespace Menu.DataAccess.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
-                    b.Property<DateTime>("CreateTime")
+                    b.Property<DateTime?>("CreateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("Role");
@@ -1336,6 +1354,13 @@ namespace Menu.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.HasOne("Menu.Entities.Person", null)
+                        .WithMany("Users")
+                        .HasForeignKey("PersonId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
@@ -1376,6 +1401,25 @@ namespace Menu.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Menu.Entities.Entity.PersonRoles", b =>
+                {
+                    b.HasOne("Menu.Entities.Role", "Role")
+                        .WithMany("PersonRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Menu.Entities.Person", "Person")
+                        .WithMany("PersonRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Menu.Entities.Adress", b =>
@@ -1493,11 +1537,17 @@ namespace Menu.DataAccess.Migrations
 
                     b.Navigation("Customer");
 
+                    b.Navigation("PersonRoles");
+
                     b.Navigation("User");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Menu.Entities.Role", b =>
                 {
+                    b.Navigation("PersonRoles");
+
                     b.Navigation("UserCompany_C");
                 });
 #pragma warning restore 612, 618

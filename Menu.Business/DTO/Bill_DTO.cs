@@ -25,7 +25,7 @@ namespace Menu.Business.DTO
 
         public int IdPaymentMethod { get; set; }
 
-        public int IdUser { get; set; }
+        public string IdUser { get; set; }
         /*
         public  Desk_DTO Desk { get; set; }
 

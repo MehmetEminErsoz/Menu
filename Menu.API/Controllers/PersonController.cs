@@ -9,12 +9,30 @@ namespace Menu.API.Controllers
     [ApiController]
     public class PersonController : GenericController<Person_DTO>
     {
-        IGenericService<Person_DTO> service;
-        public PersonController(IGenericService<Person_DTO> _service) : base(_service)
+        
+        IPersonService service;
+        public PersonController(IPersonService _service) : base(_service)
         {
             service = _service;
+            
         }
+        
+        [HttpGet("getByEmail/{mail}")]
+        public IActionResult Get(string mail)
+        {
+           
+            var result = service.getByEmail(mail);
+            if (result != null)
+            {
+                return Ok(result);
 
+            }
+
+            return NotFound();
+          
+           
+        }
+        
 
     }
 }

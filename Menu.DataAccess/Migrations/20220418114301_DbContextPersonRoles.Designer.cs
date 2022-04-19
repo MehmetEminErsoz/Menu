@@ -4,6 +4,7 @@ using Menu.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Menu.DataAccess.Migrations
 {
     [DbContext(typeof(MenuDbContext))]
-    partial class MenuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220418114301_DbContextPersonRoles")]
+    partial class DbContextPersonRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1043,6 +1045,14 @@ namespace Menu.DataAccess.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
 
+                    b.Property<int?>("IdRole")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasIndex("IdUser");
+
                     b.HasDiscriminator().HasValue("PersonRoles");
                 });
 
@@ -1403,17 +1413,13 @@ namespace Menu.DataAccess.Migrations
 
             modelBuilder.Entity("Menu.Entities.Entity.PersonRoles", b =>
                 {
-                    b.HasOne("Menu.Entities.Role", "Role")
-                        .WithMany("PersonRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Menu.Entities.Person", "Person")
                         .WithMany("PersonRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdUser");
+
+                    b.HasOne("Menu.Entities.Role", "Role")
+                        .WithMany("PersonRoles")
+                        .HasForeignKey("IdUser");
 
                     b.Navigation("Person");
 

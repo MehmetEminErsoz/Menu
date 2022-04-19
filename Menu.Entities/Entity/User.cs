@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Menu.Entities
 {
-    public class User : IEntityWithId
+    public class User
     {
         public User()
         {
