@@ -29,7 +29,7 @@ namespace Menu.API.Auth
             IPersonService personManager,
             IConfiguration configuration)
         {
-            
+
             _userManager = userManager;
             _roleManager = roleManager;
             _personManager = personManager;
@@ -71,7 +71,7 @@ namespace Menu.API.Auth
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user =  _personManager.getByEmail(model.Email);
+            var user = _personManager.getByEmail(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -94,53 +94,60 @@ namespace Menu.API.Auth
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo.AddHours(3),
                     role = userRoles
-                    
+
                 });
             }
-            return Unauthorized(new Response { Message="İdentity olarak rolü yok" ,  Status="Login sorgulaması yapılacak"});
+            return Unauthorized(new Response { Message = "İdentity olarak rolü yok", Status = "Login sorgulaması yapılacak" });
         }
 
-       
-        
+
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists =  _personManager.getByEmail(model.Email);
-            if (userExists  != null)
+            var userExists = _personManager.getByEmail(model.Email);
+            if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
 
             var passwordHasher = new PasswordHasher<Person_DTO>();
             var user = new Person_DTO();
             var hashedPassword = passwordHasher.HashPassword(user, model.Password);
-            //burda iki tane person tanımlamış oluyoruz ramde yer ayırılmış oluyor bunu düzeltmek lazım.
-            Person_DTO person = new()
-            {
-                Birthday = (DateTime)model.Birthday,
-                Name=model.Name,
-                Surname=model.Surname,
-                IsActive = true,
-                IsDeleted=false,
-                Email = model.Email,
-                SecurityStamp=Guid.NewGuid().ToString(),
-                UserName =model.Email,
-                PhoneNumber =model.PhoneNumber,
-                PasswordHash=hashedPassword,
-                CreateTime=DateTime.Now,
-            };
 
-           _personManager.add(person);
 
-            /*
+            user.Id = Guid.NewGuid().ToString();
+            user.NormalizedEmail = model.Email.ToUpper();
+            user.NormalizedUserName = model.Email.ToUpper();
+            user.Birthday = (DateTime)model.Birthday;
+            user.Name = model.Name;
+            user.Surname = model.Surname;
+            user.IsActive = true;
+            user.IsDeleted = false;
+            user.Email = model.Email;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.UserName = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.PasswordHash = hashedPassword;
+            user.CreateTime = DateTime.Now;
+
+            
             if (!await _roleManager.RoleExistsAsync(UserRoles.User))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
             if (await _roleManager.RoleExistsAsync(UserRoles.User))
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
-            */
+                
+            if (await _roleManager.RoleExistsAsync(UserRoles.User))
+            {
+               var exist = await _userManager.AddToRoleAsync(user, UserRoles.User);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest (new Response { Message ="Rol eklenemedi" ,Status = "Error"});
+                }
+            }
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(new Response { Status = "Başarılı ", Message = "Müşteri Eklendi." });
         }
         
        
