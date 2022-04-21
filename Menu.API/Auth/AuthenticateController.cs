@@ -97,32 +97,27 @@ namespace Menu.API.Auth
             var user = new Person_DTO();
             var hashedPassword = passwordHasher.HashPassword(user, model.Password);
             //burda iki tane person tanımlamış oluyoruz ramde yer ayırılmış oluyor bunu düzeltmek lazım.
-            
-            Person_DTO person = new()
-            {
-               
-                Id=Guid.NewGuid().ToString(),
-                NormalizedEmail = model.Email.ToUpper(),
-                NormalizedUserName = model.Email.ToUpper(),
-                Birthday = (DateTime)model.Birthday,
-                Name=model.Name,
-                Surname=model.Surname,
-                IsActive = true,
-                IsDeleted=false,
-                Email = model.Email,
-                SecurityStamp=Guid.NewGuid().ToString(),
-                UserName =model.Email,
-                PhoneNumber =model.PhoneNumber,
-                PasswordHash=hashedPassword,
-                CreateTime=DateTime.Now,
-                
-            };
+
+            //user.Id = Guid.NewGuid().ToString(),
+            user.NormalizedEmail = model.Email.ToUpper();
+            user.NormalizedUserName = model.Email.ToUpper();
+            user.Birthday = (DateTime)model.Birthday;
+            user.Name = model.Name;
+            user.Surname = model.Surname;
+            user.IsActive = true;
+            user.IsDeleted = false;
+            user.Email = model.Email;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.UserName = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.PasswordHash = hashedPassword;
+            user.CreateTime = DateTime.Now;
 
 
            /* Customer_DTO customer = new()
             {
                 Id = 1,
-               IdPerson = person.Id,
+               IdPerson = user.Id,
                 CreateTime = DateTime.Now,
                 IpAdress = "192.168.1.1",
                 IsActive = true,
@@ -131,7 +126,7 @@ namespace Menu.API.Auth
 
             };*/
 
-            _personManager.add(person);
+            //_personManager.add(person);
             //_customerManager.add(customer);
             
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
@@ -139,14 +134,14 @@ namespace Menu.API.Auth
                 await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.User));
             }
                 
-            /*if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
-               var exist = await _identityUserManager.AddToRoleAsync(person, UserRoles.User);
+               var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.User);
                 if (!exist.Succeeded)
                 {
                     return BadRequest (new Response { Message ="Rol eklenemedi" ,Status = "Error"});
                 }
-            }*/
+            }
 
             return Ok(new Response { Status = "Başarılı ", Message = "Müşteri Eklendi." });
         }
