@@ -101,7 +101,7 @@ namespace Menu.API.Auth
             Person_DTO person = new()
             {
                
-                Id=user.Id,
+                Id=Guid.NewGuid().ToString(),
                 NormalizedEmail = model.Email.ToUpper(),
                 NormalizedUserName = model.Email.ToUpper(),
                 Birthday = (DateTime)model.Birthday,
@@ -119,9 +119,10 @@ namespace Menu.API.Auth
             };
 
 
-            /*Customer_DTO customer = new()
+           /* Customer_DTO customer = new()
             {
-               // IdPerson = person.Id,
+                Id = 1,
+               IdPerson = person.Id,
                 CreateTime = DateTime.Now,
                 IpAdress = "192.168.1.1",
                 IsActive = true,
@@ -130,7 +131,7 @@ namespace Menu.API.Auth
 
             };*/
 
-            //_personManager.add(person);
+            _personManager.add(person);
             //_customerManager.add(customer);
             
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
@@ -138,14 +139,14 @@ namespace Menu.API.Auth
                 await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.User));
             }
                 
-            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            /*if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
                var exist = await _identityUserManager.AddToRoleAsync(person, UserRoles.User);
                 if (!exist.Succeeded)
                 {
                     return BadRequest (new Response { Message ="Rol eklenemedi" ,Status = "Error"});
                 }
-            }
+            }*/
 
             return Ok(new Response { Status = "Başarılı ", Message = "Müşteri Eklendi." });
         }
