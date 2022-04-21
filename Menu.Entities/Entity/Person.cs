@@ -19,8 +19,8 @@ namespace Menu.Entities
             Customer = new HashSet<Customer>();
             User = new HashSet<User>();
         }
-        [Key]
-        public  string Id { get; set; }
+
+        public override string Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateTime { get; set; }
