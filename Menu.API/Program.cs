@@ -124,6 +124,9 @@ builder.Services.AddScoped<IGenericService<User_DTO>, UserManager>();
 builder.Services.AddScoped<IPersonRepository,PersonRepository >();
 builder.Services.AddScoped<IPersonService, PersonManager>();
 
+builder.Services.AddScoped<IProductRepository, ProductRepository >();
+builder.Services.AddScoped<IProductService, ProductManager>();
+
 
 builder.Services.AddSingleton<IFunctions, Functions>();
 

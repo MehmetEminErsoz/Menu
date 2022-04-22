@@ -9,10 +9,25 @@ namespace Menu.API.Controllers
     [ApiController]
     public class ProductController : GenericController<Product_DTO>
     {
-        IGenericService<Product_DTO> service;
-        public ProductController(IGenericService<Product_DTO> _service) : base(_service)
+        IProductService Service;
+        
+        public ProductController(IProductService _service) : base(_service)
         {
-            service = _service;
+            Service = _service;
+        }
+
+        [HttpGet("getByIdCompany/{idCompany}")]
+        public IActionResult Get(int idCompany)
+        {
+
+            var result = Service.getByIdCompany(idCompany);
+            if (result != null)
+            {
+                return Ok(result);
+
+            }
+
+            return NotFound();
         }
     }
 }
