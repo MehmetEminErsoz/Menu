@@ -9,7 +9,7 @@ using Menu.Entities.Entity;
 
 namespace Menu.DataAccess
 {
-    public class MenuDbContext :IdentityDbContext<IdentityUser>
+    public class MenuDbContext :IdentityDbContext<Person,Role,string>
     {
         DbContextOptions options;
         public MenuDbContext(DbContextOptions<MenuDbContext> _options) : base(_options)
@@ -42,9 +42,17 @@ namespace Menu.DataAccess
         public  DbSet<UserCompany_C> UserCompany_C { get; set; }
 
         public DbSet<PersonRoles> personRoles { get; set; }
+        public DbSet<AppUserClaim> appUserClaim { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AppUserClaim>()
+                .HasOne(s => s.AppPerson)
+                .WithMany(s => s.AppClaims)
+                .HasForeignKey(s => s.UserId);
+
+            
 
             modelBuilder.Entity<PersonRoles>()
                 .HasOne(s => s.Person)
