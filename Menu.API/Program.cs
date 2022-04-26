@@ -132,8 +132,7 @@ builder.Services.AddDbContext<MenuDbContext>(options =>
 
 
 //identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddRoles<IdentityRole>()
+builder.Services.AddIdentity<Person,Role>()
     .AddEntityFrameworkStores<MenuDbContext>()
     .AddDefaultTokenProviders();
 

@@ -26,10 +26,10 @@ namespace Menu.Entities
         [StringLength(50)]
         public override string Name { get; set; }
 
-        public ICollection<UserCompany_C> UserCompany_C { get; set; }
+        public ICollection<UserCompany_C>? UserCompany_C { get; set; }
 
 
-        public ICollection<PersonRoles> PersonRoles { get; set; }
+        public ICollection<PersonRoles>? PersonRoles { get; set; }
 
     }
 }

@@ -36,7 +36,7 @@ namespace Menu.Entities
         [Column(TypeName = "date")]
         public DateTime Birthday { get; set; }
         
-        public ICollection<IdentityUser> Users { get; set; }
+        public ICollection<AppUserClaim> AppClaims { get; set; }
         public ICollection<Adress_C> Adress_C { get; set; }
         public ICollection<Customer> Customer { get; set; }
         public ICollection<User> User { get; set; }
