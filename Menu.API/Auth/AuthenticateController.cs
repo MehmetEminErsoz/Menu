@@ -114,25 +114,28 @@ namespace Menu.API.Auth
             user.CreateTime = DateTime.Now;
 
 
-            /* Customer_DTO customer = new()
+            Customer_DTO customer = new()
              {
-                 Id = 1,
-                IdPerson = user.Id,
+                 
+                 IdPerson = user.Id,
                  CreateTime = DateTime.Now,
                  IpAdress = "192.168.1.1",
                  IsActive = true,
                  IsApproved = false,
                  IsDeleted = false
 
-             };*/
+             };
 
-            //_personManager.add(person);
-            //_customerManager.add(customer);
-           
-            
+            var result = await _identityUserManager.CreateAsync(user, model.Password);
+            _customerManager.add(customer);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
+            }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
-              await _identityRoleManager.CreateAsync(new Role { Id=Guid.NewGuid().ToString(),Name="SUser"} );
+              await _identityRoleManager.CreateAsync(new Role { Id=Guid.NewGuid().ToString(),Name="User"} );
             }
                 
             if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
