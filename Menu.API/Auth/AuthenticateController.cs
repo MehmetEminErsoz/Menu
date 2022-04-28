@@ -80,17 +80,17 @@ namespace Menu.API.Auth
                     
                 });
             }
-            return Unauthorized(new Response { Message="İdentity olarak rolü yok" ,  Status="Login sorgulaması yapılacak"});
+            return Unauthorized(new Response { Message = "İdentity olarak rolü yok", Status = "Login sorgulaması yapılacak" });
         }
 
-       
-        
+
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists =  _personManager.getByEmail(model.Email);
-            if (userExists  != null)
+            var userExists = _personManager.getByEmail(model.Email);
+            if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
 
             var passwordHasher = new PasswordHasher<Person>();
