@@ -28,7 +28,7 @@ namespace Menu.API.Auth
 
         public AuthenticateController(
 
-
+            
             UserManager<Person> identityUserManager,
             RoleManager<Role> identityRoleManager,
             IGenericService<Customer_DTO> CustomerManager,
@@ -149,164 +149,242 @@ namespace Menu.API.Auth
 
             return Ok(new Response { Status = "Başarılı ", Message = "Müşteri Eklendi." });
         }
-        
-       
-//        [HttpPost]
-//        //[Authorize (Roles ="SAdmin")]
-//        [Route("register-admin")]
-//        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterAdminModel model)
-//        {
-//            var userExists = _personManager.getByEmail(model.Email);
-//            if (userExists != null)
-//                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
 
-//            var passwordHasher = new PasswordHasher<Person_DTO>();
-//            var user = new Person_DTO();
-//            var hashedPassword = passwordHasher.HashPassword(user, model.Password);
 
-//            Person_DTO person = new()
-//            {
-//                NormalizedEmail = model.Email.ToUpper(),
-//                NormalizedUserName = model.Email.ToUpper(),
-//                Birthday = (DateTime)model.Birthday,
-//                Name = model.Name,
-//                Surname = model.Surname,
-//                IsActive = true,
-//                IsDeleted = false,
-//                Email = model.Email,
-//                SecurityStamp = Guid.NewGuid().ToString(),
-//                UserName = model.Email,
-//                PhoneNumber = model.PhoneNumber,
-//                PasswordHash = hashedPassword,
-//                CreateTime = DateTime.Now,
+        [HttpPost]
+        [Authorize (Roles ="SAdmin")]
+        [Route("register-admin")]
+        public async Task<IActionResult> registerAdmin([FromBody] RegisterAdminModel model)
+        {
+            var userExists = _personManager.getByEmail(model.Email);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
 
-//            };
-//            User_DTO userWithPerson = new() {
-//                Id = 0,
-//                Phone=model.PhoneNumber,
-//            IdPerson=person.Id,
-//            CreateTime=DateTime.Now,
-//            IsActive=true,
-//            IsDeleted=false,
-//            PasswordAnswer=model.PasswordAnswer,
-//            PasswordQuestion=model.PasswordQuestion,
-//            SecondMail=model.SecondEmail,
-//            };
-//            _personManager.add(person);
-//            _userManager.add(userWithPerson);
-///*
-//            var result = await _identityUserManager.CreateAsync(user, model.Password);
-//            if (!result.Succeeded)
-//                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Kullanıcı eklenemedi ! Lütfen bilgileri doğrulayın." });
+            var passwordHasher = new PasswordHasher<Person>();
+            var user = new Person();
+            var hashedPassword = passwordHasher.HashPassword(user, model.Password);
 
-//            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
-//                await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-//            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
-//                await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.User));
-           
-//            if (await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
-//            {
-//                await _identityUserManager.AddToRoleAsync(person, UserRoles.Admin);
-                
-//            }
-//            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
-//            {
-//                await _identityUserManager.AddToRoleAsync(person, UserRoles.User);
-//            }
-//          */
+            user.NormalizedEmail = model.Email.ToUpper();
+            user.NormalizedUserName = model.Email.ToUpper();
+            user.Birthday = (DateTime)model.Birthday;
+            user.Name = model.Name;
+            user.Surname = model.Surname;
+            user.IsActive = true;
+            user.IsDeleted = false;
+            user.Email = model.Email;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.UserName = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.PasswordHash = hashedPassword;
+            user.CreateTime = DateTime.Now;
+
+            User_DTO Suser = new()
+            {
+               CreateTime= DateTime.Now,
+               IdPerson=user.Id,
+               IsActive=true,
+               IsDeleted=false,
+               SecondMail=model.SecondEmail,
+               PasswordQuestion=model.PasswordQuestion,
+               PasswordAnswer=model.PasswordAnswer,
+               Phone=model.PhoneNumber
+            };
+            var result = await _identityUserManager.CreateAsync(user, model.Password);
             
-//            return Ok(new Response { Status = "Success", Message = "Admin/User created successfully!" });
-//        }
+            _userManager.add(Suser);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
+            }
+            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "User" });
+            }
+            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "Admin" });
+            }
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            {
+                var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.User);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest(new Response { Message = "Rol eklenemedi", Status = "Error" });
+                }
+            }
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.Admin);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest(new Response { Message = "Rol eklenemedi", Status = "Error" });
+                }
+            }
 
-        
-//        [HttpPost]
-//        //[Authorize(Roles = "SAdmin")]
-//        [Route("Register-SAdmin")]
-//        public async Task<IActionResult> SAdmin([FromBody] RegisterModel model)
-//        {
-//            var userExists = await _identityUserManager.FindByEmailAsync(model.Email);
-//            if (userExists != null)
-//                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
+            return Ok(new Response { Status = "Success", Message = "Admin/User created successfully!" });
+        }
 
-//            IdentityUser user = new()
-//            {
-//                Email = model.Email,
-//                SecurityStamp = Guid.NewGuid().ToString(),
-//                UserName = model.Email
-//            };
-//            var result = await _identityUserManager.CreateAsync(user, model.Password);
-//            if (!result.Succeeded)
-//                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Kullanıcı eklenemedi ! Lütfen bilgileri doğrulayın." });
 
-//            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
-//                await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-//            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
-//                await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.User));
-//            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.SAdmin))
-//                await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.SAdmin));
+        [HttpPost]
+        //[Authorize(Roles = "SAdmin")]
+        [Route("register-SAdmin")]
+        //[Authorize(Roles = "SAdmin")]
+        public async Task<IActionResult> SAdmin([FromBody] RegisterAdminModel model)
+        {
+            var userExists = _personManager.getByEmail(model.Email);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
 
-//            if (await _identityRoleManager.RoleExistsAsync(UserRoles.SAdmin))
-//            {
-//                await _identityUserManager.AddToRoleAsync(user, UserRoles.SAdmin);
+            var passwordHasher = new PasswordHasher<Person>();
+            var user = new Person();
+            var hashedPassword = passwordHasher.HashPassword(user, model.Password);
 
-//            }
-//            if (await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
-//            {
-//                await _identityUserManager.AddToRoleAsync(user, UserRoles.Admin);
+            user.NormalizedEmail = model.Email.ToUpper();
+            user.NormalizedUserName = model.Email.ToUpper();
+            user.Birthday = (DateTime)model.Birthday;
+            user.Name = model.Name;
+            user.Surname = model.Surname;
+            user.IsActive = true;
+            user.IsDeleted = false;
+            user.Email = model.Email;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.UserName = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.PasswordHash = hashedPassword;
+            user.CreateTime = DateTime.Now;
 
-//            }
-//            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
-//            {
-//                await _identityUserManager.AddToRoleAsync(user, UserRoles.User);
-//            }
-//            /*if (result.Succeeded)
-//            {
-//                Personekle(model);
-//            }*/
-            
-//            return Ok(new Response { Status = "Success", Message = "Super Admin created successfully!" });
-//        }
-//        [HttpPost]
-//        [Authorize (Roles ="Admin")]
-//        [Route("AddWaiter")]
-//        public async Task<IActionResult> AddWaiter([FromBody] RegisterModel model)
-//        {
-//            var userExists = await _identityUserManager.FindByEmailAsync(model.Email);
-//            if (userExists != null)
-//                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
+            User_DTO Suser = new()
+            {
+                CreateTime = DateTime.Now,
+                IdPerson = user.Id,
+                IsActive = true,
+                IsDeleted = false,
+                SecondMail = model.SecondEmail,
+                PasswordQuestion = model.PasswordQuestion,
+                PasswordAnswer = model.PasswordAnswer,
+                Phone = model.PhoneNumber
+            };
+            var result = await _identityUserManager.CreateAsync(user, model.Password);
 
-//            IdentityUser user = new()
-//            {
-//                Email = model.Email,
-//                SecurityStamp = Guid.NewGuid().ToString(),
-//                UserName = model.Email
-//            };
-//            var result = await _identityUserManager.CreateAsync(user, model.Password);
-//            if (!result.Succeeded)
-//                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Kullanıcı eklenemedi ! Lütfen bilgileri doğrulayın." });
+            _userManager.add(Suser);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
+            }
+            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "User" });
+            }
+            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "Admin" });
+            }
+            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.SAdmin))
+            {
+                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "SAdmin" });
+            }
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            {
+                var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.User);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest(new Response { Message = "Rol eklenemedi", Status = "Error" });
+                }
+            }
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.Admin);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest(new Response { Message = "Rol eklenemedi", Status = "Error" });
+                }
+            }
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.SAdmin))
+            {
+                var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.SAdmin);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest(new Response { Message = "Rol eklenemedi", Status = "Error" });
+                }
+            }
 
-            
-//            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
-//                await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.User));
-//            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Waiter))
-//                await _identityRoleManager.CreateAsync(new IdentityRole(UserRoles.Waiter));
 
-//            if (await _identityRoleManager.RoleExistsAsync(UserRoles.Waiter))
-//            {
-//                await _identityUserManager.AddToRoleAsync(user, UserRoles.Waiter);
-//            }
-            
-//            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
-//            {
-//                await _identityUserManager.AddToRoleAsync(user, UserRoles.User);
-//            }
-//            /*if (result.Succeeded)
-//            {
-//                Personekle(model);
-//            }*/
-            
-//            return Ok(new Response { Status = "Success", Message = "Garson başarıyla eklendi!" });
-//        }
+            return Ok(new Response { Status = "Success", Message = "Super Admin created successfully!" });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("AddWaiter")]
+        public async Task<IActionResult> AddWaiter([FromBody] RegisterAdminModel model)
+        {
+            var userExists = _personManager.getByEmail(model.Email);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Böyle bir kullanıcı mevcut" });
+
+            var passwordHasher = new PasswordHasher<Person>();
+            var user = new Person();
+            var hashedPassword = passwordHasher.HashPassword(user, model.Password);
+
+            user.NormalizedEmail = model.Email.ToUpper();
+            user.NormalizedUserName = model.Email.ToUpper();
+            user.Birthday = (DateTime)model.Birthday;
+            user.Name = model.Name;
+            user.Surname = model.Surname;
+            user.IsActive = true;
+            user.IsDeleted = false;
+            user.Email = model.Email;
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.UserName = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.PasswordHash = hashedPassword;
+            user.CreateTime = DateTime.Now;
+
+            User_DTO Suser = new()
+            {
+                CreateTime = DateTime.Now,
+                IdPerson = user.Id,
+                IsActive = true,
+                IsDeleted = false,
+                SecondMail = model.SecondEmail,
+                PasswordQuestion = model.PasswordQuestion,
+                PasswordAnswer = model.PasswordAnswer,
+                Phone = model.PhoneNumber
+            };
+            var result = await _identityUserManager.CreateAsync(user, model.Password);
+
+            _userManager.add(Suser);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
+            }
+            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "User" });
+            }
+            if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Waiter))
+            {
+                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "Waiter" });
+            }
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
+            {
+                var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.User);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest(new Response { Message = "Rol eklenemedi", Status = "Error" });
+                }
+            }
+            if (await _identityRoleManager.RoleExistsAsync(UserRoles.Waiter))
+            {
+                var exist = await _identityUserManager.AddToRoleAsync(user, UserRoles.Waiter);
+                if (!exist.Succeeded)
+                {
+                    return BadRequest(new Response { Message = "Rol eklenemedi", Status = "Error" });
+                }
+            }
+  
+
+            return Ok(new Response { Status = "Success", Message = "Garson başarıyla eklendi!" });
+        }
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
