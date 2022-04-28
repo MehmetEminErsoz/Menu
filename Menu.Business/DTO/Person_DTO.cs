@@ -11,6 +11,7 @@ namespace Menu.Business.DTO
 {
     public class Person_DTO :IdentityUser
     {
+        
         public override string Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
