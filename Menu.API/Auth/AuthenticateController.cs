@@ -112,10 +112,13 @@ namespace Menu.API.Auth
             user.PhoneNumber = model.PhoneNumber;
             user.PasswordHash = hashedPassword;
             user.CreateTime = DateTime.Now;
+            var result = await _identityUserManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
+            }
 
             var userPerson = _personManager.getByEmail(user.Email);
-            
-            
             Customer_DTO customer = new()
              {
                  
@@ -127,14 +130,9 @@ namespace Menu.API.Auth
                  IsDeleted = false
 
              };
-
-            var result = await _identityUserManager.CreateAsync(user, model.Password);
             _customerManager.add(customer);
 
-            if (!result.Succeeded)
-            {
-                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
-            }
+           
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
               await _identityRoleManager.CreateAsync(new Role { Id=0,Name="User"} );
