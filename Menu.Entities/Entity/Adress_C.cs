@@ -17,7 +17,7 @@ namespace Menu.Entities
         public DateTime CreateTime { get; set; }
 
         [ForeignKey("IdPerson")]
-        public string? IdPerson { get; set; }
+        public int? IdPerson { get; set; }
         public Person? Person { get; set; }
 
         [ForeignKey("IdAdress")]

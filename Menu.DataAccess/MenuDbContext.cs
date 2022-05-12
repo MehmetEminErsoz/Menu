@@ -9,7 +9,7 @@ using Menu.Entities.Entity;
 
 namespace Menu.DataAccess
 {
-    public class MenuDbContext :IdentityDbContext<Person,Role,string>
+    public class MenuDbContext :IdentityDbContext<Person,Role,int>
     {
         DbContextOptions options;
         public MenuDbContext(DbContextOptions<MenuDbContext> _options) : base(_options)

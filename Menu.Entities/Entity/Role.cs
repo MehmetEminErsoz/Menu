@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Menu.Entities
 {
-    public class Role :IdentityRole
+    public class Role :IdentityRole<int>
     {
         public Role()
         {
             UserCompany_C = new HashSet<UserCompany_C>();
         }
 
-        public override string Id { get; set; }
+        public override int Id { get; set; }
         public bool? IsDeleted { get; set; }
         public bool? IsActive { get; set; }
         public DateTime? CreateTime { get; set; }

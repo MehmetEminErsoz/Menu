@@ -113,11 +113,13 @@ namespace Menu.API.Auth
             user.PasswordHash = hashedPassword;
             user.CreateTime = DateTime.Now;
 
-
+            var userPerson = _personManager.getByEmail(user.Email);
+            
+            
             Customer_DTO customer = new()
              {
                  
-                 IdPerson = user.Id,
+                 IdPerson = userPerson.Id,
                  CreateTime = DateTime.Now,
                  IpAdress = "192.168.1.1",
                  IsActive = true,
@@ -135,7 +137,7 @@ namespace Menu.API.Auth
             }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
-              await _identityRoleManager.CreateAsync(new Role { Id=Guid.NewGuid().ToString(),Name="User"} );
+              await _identityRoleManager.CreateAsync(new Role { Id=0,Name="User"} );
             }
                 
             if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
@@ -191,18 +193,19 @@ namespace Menu.API.Auth
             };
             var result = await _identityUserManager.CreateAsync(user, model.Password);
             
-            _userManager.add(Suser);
+            
             if (!result.Succeeded)
             {
                 return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
             }
+            _userManager.add(Suser);
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
-                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "User" });
+                await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "User" });
             }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
             {
-                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "Admin" });
+                await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "Admin" });
             }
             if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
@@ -253,10 +256,12 @@ namespace Menu.API.Auth
             user.PasswordHash = hashedPassword;
             user.CreateTime = DateTime.Now;
 
+
+
             User_DTO Suser = new()
             {
                 CreateTime = DateTime.Now,
-                IdPerson = user.Id,
+                IdPerson = 1,
                 IsActive = true,
                 IsDeleted = false,
                 SecondMail = model.SecondEmail,
@@ -266,22 +271,23 @@ namespace Menu.API.Auth
             };
             var result = await _identityUserManager.CreateAsync(user, model.Password);
 
-            _userManager.add(Suser);
+            
             if (!result.Succeeded)
             {
                 return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
             }
+            _userManager.add(Suser);
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
-                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "User" });
+                await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "User" });
             }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Admin))
             {
-                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "Admin" });
+                await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "Admin" });
             }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.SAdmin))
             {
-                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "SAdmin" });
+                await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "SAdmin" });
             }
             if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
@@ -359,11 +365,11 @@ namespace Menu.API.Auth
             }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
-                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "User" });
+                await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "User" });
             }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.Waiter))
             {
-                await _identityRoleManager.CreateAsync(new Role { Id = Guid.NewGuid().ToString(), Name = "Waiter" });
+                await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "Waiter" });
             }
             if (await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {

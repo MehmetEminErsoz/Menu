@@ -15,7 +15,7 @@ namespace Menu.Business.DTO
 
         public int IdCompany { get; set; }
 
-        public string IdUser { get; set; }
+        public int IdUser { get; set; }
 
         public int IdRole { get; set; }
 

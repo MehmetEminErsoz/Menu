@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace Menu.Entities.Entity
 {
     
-    public class PersonRoles : IdentityUserRole<String> 
+    public class PersonRoles : IdentityUserRole<int> 
     {
       
 
-        public override string? UserId { get; set; }
+        public override int UserId { get; set; }
         public Person? Person { get; set; }
 
-        public override string? RoleId { get; set; }
+        public override int RoleId { get; set; }
         public Role? Role { get; set; }
 
         

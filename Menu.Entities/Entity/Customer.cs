@@ -22,7 +22,7 @@ namespace Menu.Entities
         public bool IsApproved { get; set; }
 
         [ForeignKey("IdPerson")]
-        public string? IdPerson { get; set; }
+        public int? IdPerson { get; set; }
         public Person? Person { get; set; }
     }
 }

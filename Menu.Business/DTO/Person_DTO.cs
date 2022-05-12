@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.DTO
 {
-    public class Person_DTO :IdentityUser
+    public class Person_DTO :IdentityUser<int>
     {
         
-        public override string Id { get; set; }
+        public override int Id { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateTime { get; set; }

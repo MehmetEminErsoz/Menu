@@ -14,7 +14,7 @@ namespace Menu.Business.DTO
         public bool IsActive { get; set; }
         public DateTime CreateTime { get; set; }
 
-        public string IdPerson { get; set; }
+        public int IdPerson { get; set; }
 
         [Required]
         [StringLength(50)]

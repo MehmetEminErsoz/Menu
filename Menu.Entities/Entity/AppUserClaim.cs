@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Menu.Entities.Entity
 {
-    public class AppUserClaim: IdentityUserClaim<string>
+    public class AppUserClaim: IdentityUserClaim<int>
     {
         public virtual Person? AppPerson { get; set; }
     }
