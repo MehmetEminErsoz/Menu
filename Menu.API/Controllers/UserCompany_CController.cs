@@ -16,11 +16,11 @@ namespace Menu.API.Controllers
             service = _service;
         }
 
-        [HttpPost("SetByEmail/{mail}")]
+        [HttpPost("SetByEmail/")]
         public IActionResult Post([FromBody] UserCompany_CModel model)
         {
 
-            var result = service.SetByEmail(model.Email,model.idCompany,model.idRole);
+            var result = service.SetRoleByEmail(model.Email,model.idCompany,model.idRole);
             if (result != null)
             {
                 return Ok(result);

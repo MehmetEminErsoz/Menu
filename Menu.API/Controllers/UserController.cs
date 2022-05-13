@@ -9,10 +9,28 @@ namespace Menu.API.Controllers
     [ApiController]
     public class UserController : GenericController<User_DTO>
     {
-        IGenericService<User_DTO> service;
-        public UserController(IGenericService<User_DTO> _service) : base(_service)
+        
+        IUserService service;
+        public UserController(IUserService _service) : base(_service)
         {
             service = _service;
+        }
+
+
+        [HttpGet("getByEmail/{mail}")]
+        public IActionResult Get(string mail)
+        {
+
+            var result = service.getByEmail(mail);
+            if (result != null)
+            {
+                return Ok(result);
+
+            }
+
+            return NotFound();
+
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Menu.Business.DTO;
+﻿using Menu.Business.Abstract;
+using Menu.Business.DTO;
 using Menu.Business.UniversalClassesAbstract;
 using Menu.DataAccess.Abstract;
 using Menu.Entities;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.Concrete
 {
-    public class UserManager : GenericManager<User,User_DTO>
+    public class UserManager : GenericManager<User,User_DTO>,IUserService
     {
         IGenericRepository<User> repository;
         IFunctions functions;
@@ -18,6 +19,15 @@ namespace Menu.Business.Concrete
         {
             repository = _repository;
             functions = _functions;
+        }
+
+        public User getByEmail(string mail)
+        {
+
+            var x = repository.getAll();
+
+            var z = x.Where(s => s.Person.Email == mail).FirstOrDefault();
+            return z;
         }
     }
 }

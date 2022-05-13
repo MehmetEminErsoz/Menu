@@ -13,12 +13,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -127,6 +131,11 @@ builder.Services.AddScoped<IPersonService, PersonManager>();
 builder.Services.AddScoped<IProductRepository, ProductRepository >();
 builder.Services.AddScoped<IProductService, ProductManager>();
 
+builder.Services.AddScoped<IUserCompany_CRepository, UserCompany_CRepository>();
+builder.Services.AddScoped<IUserCompany_CService, UserCompany_CManager>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserManager>();
 
 builder.Services.AddSingleton<IFunctions, Functions>();
 

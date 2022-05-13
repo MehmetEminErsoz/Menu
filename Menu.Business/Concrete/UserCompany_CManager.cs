@@ -14,17 +14,18 @@ namespace Menu.Business.Concrete
     public class UserCompany_CManager : GenericManager<UserCompany_C,UserCompany_C_DTO>,IUserCompany_CService
     {
         IGenericRepository<UserCompany_C> repository;
-        IPersonRepository personRepository;
+        IUserRepository userRepository;
         IFunctions functions;
-        public UserCompany_CManager(IGenericRepository<UserCompany_C> _repository, IFunctions _functions) : base(_repository, _functions)
+        public UserCompany_CManager(IGenericRepository<UserCompany_C> _repository, IFunctions _functions,IUserRepository _userRepository) : base(_repository, _functions)
         {
             repository = _repository;
             functions = _functions;
+            userRepository = _userRepository;
         }
 
-        public UserCompany_C SetByEmail(string mail,int idCompany,int idRole)
+        public UserCompany_C SetRoleByEmail(string mail,int idCompany,int idRole)
         {
-            var user = personRepository.getByEmail(mail);
+            var user = userRepository.getByEmail(mail);
 
             UserCompany_C userCompany = new() {
             IdCompany = idCompany,

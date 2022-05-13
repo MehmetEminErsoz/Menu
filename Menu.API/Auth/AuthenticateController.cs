@@ -178,24 +178,24 @@ namespace Menu.API.Auth
             user.PasswordHash = hashedPassword;
             user.CreateTime = DateTime.Now;
 
-            User_DTO Suser = new()
-            {
-               CreateTime= DateTime.Now,
-               IdPerson=user.Id,
-               IsActive=true,
-               IsDeleted=false,
-               SecondMail=model.SecondEmail,
-               PasswordQuestion=model.PasswordQuestion,
-               PasswordAnswer=model.PasswordAnswer,
-               Phone=model.PhoneNumber
-            };
+            
             var result = await _identityUserManager.CreateAsync(user, model.Password);
-            
-            
             if (!result.Succeeded)
             {
                 return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
             }
+            User_DTO Suser = new()
+            {
+                CreateTime = DateTime.Now,
+                IdPerson = user.Id,
+                IsActive = true,
+                IsDeleted = false,
+                SecondMail = model.SecondEmail,
+                PasswordQuestion = model.PasswordQuestion,
+                PasswordAnswer = model.PasswordAnswer,
+                Phone = model.PhoneNumber
+            };
+            
             _userManager.add(Suser);
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
@@ -254,8 +254,11 @@ namespace Menu.API.Auth
             user.PasswordHash = hashedPassword;
             user.CreateTime = DateTime.Now;
 
-
-
+            var result = await _identityUserManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
+            }
             User_DTO Suser = new()
             {
                 CreateTime = DateTime.Now,
@@ -267,13 +270,6 @@ namespace Menu.API.Auth
                 PasswordAnswer = model.PasswordAnswer,
                 Phone = model.PhoneNumber
             };
-            var result = await _identityUserManager.CreateAsync(user, model.Password);
-
-            
-            if (!result.Succeeded)
-            {
-                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
-            }
             _userManager.add(Suser);
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
@@ -342,7 +338,11 @@ namespace Menu.API.Auth
             user.PhoneNumber = model.PhoneNumber;
             user.PasswordHash = hashedPassword;
             user.CreateTime = DateTime.Now;
-
+            var result = await _identityUserManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
+            }
             User_DTO Suser = new()
             {
                 CreateTime = DateTime.Now,
@@ -354,13 +354,7 @@ namespace Menu.API.Auth
                 PasswordAnswer = model.PasswordAnswer,
                 Phone = model.PhoneNumber
             };
-            var result = await _identityUserManager.CreateAsync(user, model.Password);
-
             _userManager.add(Suser);
-            if (!result.Succeeded)
-            {
-                return BadRequest(new Response { Status = "424 Failed", Message = "Kullanıcı eklenemedi." });
-            }
             if (!await _identityRoleManager.RoleExistsAsync(UserRoles.User))
             {
                 await _identityRoleManager.CreateAsync(new Role { Id = 0, Name = "User" });

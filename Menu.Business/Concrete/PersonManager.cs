@@ -33,24 +33,7 @@ namespace Menu.Business.Concrete
             return z;
         }
 
-        public bool addWithRole(Person_DTO person , Role_DTO role)
-        {
-
-            if (role == null || person==null)
-            {
-                return false;
-            }
-
-            Person person1 = new Person();
-            person1 =mapper.Map(person,person1);
-            var AddedRecord = repository.add(person1);
-            var recordDTO = mapper.Map<Person_DTO>(AddedRecord);
-
-
-
-            
-            return true;
-        }
+       
 
         
 

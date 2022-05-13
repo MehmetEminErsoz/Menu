@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Menu.Business.Abstract
 {
-    public interface IUserCompany_CService : IGenericService<UserCompany_C_DTO>
+    public interface IUserService : IGenericService<User_DTO>
     {
-        public UserCompany_C SetRoleByEmail(string mail,int idCompany,int idRole);
-
-       
+        public User getByEmail(string mail);
     }
 }
